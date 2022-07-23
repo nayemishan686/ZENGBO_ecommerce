@@ -11,9 +11,15 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 // Admin Login
-Route::get('/admin-login',[App\Http\Controllers\Auth\LoginController::class, 'adminLogin'])->name('admin.login');
+Route::get('/admin-login', [App\Http\Controllers\Auth\LoginController::class, 'adminLogin'])->name('admin.login');
 
-//Admin Home
-Route::get('/admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
+// Group Route
+Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_admin'], function () {
+    //Admin Home
+    Route::get('/admin/home', 'AdminController@adminHome')->name('admin.home');
+    Route::get('/admin/logout', 'AdminController@logout')->name('admin.logout');
+
+
+});

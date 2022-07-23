@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="{{asset('admin')}}/plugins/fontawesome-free/css/all.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{{asset('admin')}}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- toastr -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('admin')}}/dist/css/adminlte.min.css">
 </head>
@@ -69,5 +71,79 @@
 <script src="{{asset('admin')}}/dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('admin')}}/dist/js/pages/dashboard2.js"></script>
+<!-- sweetalert -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<!-- toastr -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<!-- sweetalert msg start -->
+<script>  
+  $(document).on("click", "#delete", function(e){
+      e.preventDefault();
+      var link = $(this).attr("href");
+         swal({
+           title: "Are you Want to delete?",
+           text: "Once Delete, This will be Permanently Delete!",
+           icon: "warning",
+           buttons: true,
+           dangerMode: true,
+         })
+         .then((willDelete) => {
+           if (willDelete) {
+                window.location.href = link;
+           } else {
+             swal("Safe Data!");
+           }
+         });
+     });
+</script>
+
+<!-- logout permission -->
+<script>  
+  $(document).on("click", "#logout", function(e){
+      e.preventDefault();
+      var link = $(this).attr("href");
+         swal({
+           title: "Are you Want to logout?",
+           text: "",
+           icon: "warning",
+           buttons: true,
+           dangerMode: true,
+         })
+         .then((willDelete) => {
+           if (willDelete) {
+                window.location.href = link;
+           } else {
+             swal("You aren't logout");
+           }
+         });
+     });
+</script>
+
+
+
+
+<script>
+ @if(Session::has('messege'))
+   var type="{{Session::get('alert-type','info')}}"
+   switch(type){
+       case 'info':
+            toastr.info("{{ Session::get('messege') }}");
+            break;
+       case 'success':
+           toastr.success("{{ Session::get('messege') }}");
+           break;
+       case 'warning':
+          toastr.warning("{{ Session::get('messege') }}");
+           break;
+       case 'error':
+           toastr.error("{{ Session::get('messege') }}");
+           break;
+         }
+ @endif
+</script>
+<!-- sweetalert msg end -->
+
+
 </body>
 </html>
