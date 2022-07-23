@@ -54,4 +54,9 @@ class LoginController extends Controller
             return redirect()->back()->with('error', 'Password Or Email Not Matched');
         }
     }
+
+    //admin login form
+    public function adminLogin(){
+        return view('auth.adminLogin');
+    }
 }

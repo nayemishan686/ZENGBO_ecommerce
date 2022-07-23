@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // Admin Login
+Route::get('/admin-login',[App\Http\Controllers\Auth\LoginController::class, 'adminLogin'])->name('admin.login');
 
 //Admin Home
-Route::get('/admin', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
+Route::get('/admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
