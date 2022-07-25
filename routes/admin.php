@@ -27,6 +27,10 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
     // Category CRUD
     Route::group(['prefix' => 'category'], function(){
         Route::get('/index', 'CategoryController@index')->name('category.index');
+        Route::post('/store', 'CategoryController@store')->name('category.store');
+        Route::get('/destroy/{id}', 'CategoryController@destroy')->name('category.delete');
+        Route::get('/edit/{id}','CategoryController@edit');
+        Route::post('/update', 'CategoryController@update')->name('category.update');
     });
 
 });

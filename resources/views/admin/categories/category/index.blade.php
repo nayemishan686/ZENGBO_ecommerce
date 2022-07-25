@@ -12,8 +12,10 @@
                     <!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Category</a></li>
-                            <li class="breadcrumb-item active">Categories</li>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#categoryModal">
+                                Add New
+                            </button>
                         </ol>
                     </div>
                     <!-- /.col -->
@@ -44,12 +46,14 @@
                                         <tbody>
                                             @foreach ($category as $key => $cat)
                                                 <tr>
-                                                    <td>{{++$key}}</td>
-                                                    <td>{{$cat->category_name}}</td>
-                                                    <td>{{$cat->category_slug}}</td>
+                                                    <td>{{ ++$key }}</td>
+                                                    <td>{{ $cat->category_name }}</td>
+                                                    <td>{{ $cat->category_slug }}</td>
                                                     <td>
-                                                        <a href="" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                                                        <a href="" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                                        <a href="" class="btn btn-primary edit" data-id= "{{$cat->id}}" data-toggle="modal" data-target="#editModal"><i
+                                                                class="fas fa-edit"></i></a>
+                                                        <a href="{{route('category.delete',$cat->id)}}" class="btn btn-danger" id="delete"><i
+                                                                class="fas fa-trash"></i></a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -63,4 +67,74 @@
                 </div>
             </section>
         </div>
+
+        <!-- Category insert Modal -->
+        <div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="{{ route('category.store') }}" method="POST">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="category_name">Category Name</label>
+                                <input type="text" class="form-control" id="category_name" name="category_name"
+                                    placeholder="Category Name">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Edit Modal -->
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="{{ route('category.update') }}" method="POST">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="category_name">Category Name</label>
+                                <input type="text" class="form-control" id="e_category_name" name="category_name"
+                                    placeholder="Category Name">
+                                <input type="hidden" name="id" id="e_category_id">
+                                
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        $('body').on('click','.edit', function(){
+            let cat_id=$(this).data('id');
+            $.get("edit/"+cat_id,function(data){
+                $('#e_category_name').val(data.category_name);
+                $('#e_category_id').val(data.id);
+            });
+        });
+    </script>
+    
     @endsection
