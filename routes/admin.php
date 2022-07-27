@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\admin\SubCategoryController;
+use App\Models\SubCategory;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +33,13 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
         Route::get('/destroy/{id}', 'CategoryController@destroy')->name('category.delete');
         Route::get('/edit/{id}','CategoryController@edit');
         Route::post('/update', 'CategoryController@update')->name('category.update');
+    });
+
+    // Category CRUD
+    Route::group(['prefix' => 'subcategory'], function(){
+        Route::get('/index', 'SubCategoryController@index')->name('subcategory.index');
+        Route::post('/store', 'SubCategoryController@store')->name('subcategory.store');
+        Route::get('/destroy/{id}', 'SubCategoryController@destroy')->name('subcategory.delete');
     });
 
 });

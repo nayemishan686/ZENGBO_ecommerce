@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Category;
-use Str;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -27,6 +27,7 @@ class CategoryController extends Controller
         return view('admin.categories.category.index',compact('category'));
     }
 
+    // store category
     public function store(Request $request){
         $validated = $request->validate([
             'category_name' => 'required',
