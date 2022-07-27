@@ -44,11 +44,37 @@ class SubCategoryController extends Controller
         return redirect()->route('subcategory.index')->with($notification);
     }
 
+    
+    // Edit Subcategory
+    public function edit($id){
+        // Query Builder
+        $data = DB::table('sub_categories')->where('id', $id)->first();
+        $category = DB::table('categories')->get();
+        return view('admin.categories.subcategory.edit', compact('data','category'));
+    }
+
+    // Update Category
+    public function update(Request $request){
+        $validated = $request->validate([
+            'category_id' => 'required',
+            'subcategory_name' => 'required',
+        ]);
+
+        $sid = $request->id;
+        $data = [];
+        $data['category_id'] = $request->category_id;
+        $data['subcategory_name'] = $request->subcategory_name;
+        $data['subcategory_slug'] = Str::slug($request->subcategory_name, '-');
+        DB::table('sub_categories')->where('id', $sid)->update($data);
+        $notification = array('messege' => 'SubCategory Updated Successfully', 'alert-type' => 'success');
+        return redirect()->route('subcategory.index')->with($notification);
+    }
+    
     // Delete Category
     public function destroy($id){
         DB::table('sub_categories')->where('id',$id)->delete();
         $notification = array('messege' => 'SubCategory Deleted Successfully', 'alert-type' => 'success');
         return redirect()->route('subcategory.index')->with($notification);
     }
-    
+
 }

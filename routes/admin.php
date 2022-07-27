@@ -40,6 +40,8 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
         Route::get('/index', 'SubCategoryController@index')->name('subcategory.index');
         Route::post('/store', 'SubCategoryController@store')->name('subcategory.store');
         Route::get('/destroy/{id}', 'SubCategoryController@destroy')->name('subcategory.delete');
+        Route::get('/edit/{id}', 'SubCategoryController@edit');
+        Route::post('/update', 'SubCategoryController@update')->name('subcategory.update');
     });
 
 });
