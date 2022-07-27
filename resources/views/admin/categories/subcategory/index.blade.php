@@ -47,7 +47,7 @@
                                         @foreach ($data as $key => $subcat)
                                         <tr>
                                             <td>{{ ++$key }}</td>
-                                            <td>{{ $subcat->category_name }}</td>
+                                            <td>{{ $subcat->category->category_name }}</td>
                                             <td>{{ $subcat->subcategory_name }}</td>
                                             <td>{{ $subcat->subcategory_slug }}</td>
                                             <td>
