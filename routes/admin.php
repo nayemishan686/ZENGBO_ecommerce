@@ -47,10 +47,10 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
     // ChildCategory CRUD
     Route::group(['prefix' => 'childcategory'], function(){
         Route::get('/index', 'ChildCategoryController@index')->name('childcategory.index');
-        // Route::post('/store', 'ChildCategoryController@store')->name('childcategory.store');
-        // Route::get('/destroy/{id}', 'ChildCategoryController@destroy')->name('childcategory.delete');
-        // Route::get('/edit/{id}', 'ChildCategoryController@edit');
-        // Route::post('/update', 'ChildCategoryController@update')->name('subcategory.update');
+        Route::post('/store', 'ChildCategoryController@store')->name('childcategory.store');
+        Route::get('/destroy/{id}', 'ChildCategoryController@destroy')->name('childcategory.delete');
+        Route::get('/edit/{id}', 'ChildCategoryController@edit');
+        Route::post('/update', 'ChildCategoryController@update')->name('childcategory.update');
     });
 
 });
