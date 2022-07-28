@@ -35,13 +35,22 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
         Route::post('/update', 'CategoryController@update')->name('category.update');
     });
 
-    // Category CRUD
+    // SubCategory CRUD
     Route::group(['prefix' => 'subcategory'], function(){
         Route::get('/index', 'SubCategoryController@index')->name('subcategory.index');
         Route::post('/store', 'SubCategoryController@store')->name('subcategory.store');
         Route::get('/destroy/{id}', 'SubCategoryController@destroy')->name('subcategory.delete');
         Route::get('/edit/{id}', 'SubCategoryController@edit');
         Route::post('/update', 'SubCategoryController@update')->name('subcategory.update');
+    });
+    
+    // ChildCategory CRUD
+    Route::group(['prefix' => 'childcategory'], function(){
+        Route::get('/index', 'ChildCategoryController@index')->name('childcategory.index');
+        // Route::post('/store', 'ChildCategoryController@store')->name('childcategory.store');
+        // Route::get('/destroy/{id}', 'ChildCategoryController@destroy')->name('childcategory.delete');
+        // Route::get('/edit/{id}', 'ChildCategoryController@edit');
+        // Route::post('/update', 'ChildCategoryController@update')->name('subcategory.update');
     });
 
 });
