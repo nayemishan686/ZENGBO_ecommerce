@@ -53,4 +53,13 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
         Route::post('/update', 'ChildCategoryController@update')->name('childcategory.update');
     });
 
+    // BRAND CRUD
+    Route::group(['prefix' => 'brand'], function(){
+        Route::get('/index', 'BrandController@index')->name('brand.index');
+        Route::post('/store', 'BrandController@store')->name('brand.store');
+        Route::get('/destroy/{id}', 'BrandController@destroy')->name('brand.delete');
+        Route::get('/edit/{id}', 'BrandController@edit');
+        Route::post('/update', 'BrandController@update')->name('brand.update');
+    });
+
 });

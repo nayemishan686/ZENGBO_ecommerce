@@ -59,15 +59,6 @@ class ChildCategoryController extends Controller
         return redirect()->back()->with($notification);
     }
 
-
-    // Delete Child Category
-    public function destroy($id){
-        $child_cat = DB::table('childcategories')->where('id', $id)->delete();
-        $notification = array('messege' => 'ChildCategory Deleted Successfully', 'alert-type' => 'success');
-        return redirect()->back()->with($notification);
-    }
-
-
     // Edit Child Category
     public function edit($id){
         $category = DB::table('categories')->get();
@@ -93,6 +84,16 @@ class ChildCategoryController extends Controller
         return redirect()->back()->with($notification);
 
     }
+
+
+    
+    // Delete Child Category
+    public function destroy($id){
+        $child_cat = DB::table('childcategories')->where('id', $id)->delete();
+        $notification = array('messege' => 'ChildCategory Deleted Successfully', 'alert-type' => 'success');
+        return redirect()->back()->with($notification);
+    }
+
 
 
 }
