@@ -1,3 +1,8 @@
+<style>
+  .selected {
+  background: green;
+}
+</style>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
@@ -69,6 +74,52 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Setting
+                <i class="fas fa-angle-left right"></i>
+                {{-- <span class="badge badge-info right">6</span> --}}
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('seo.setting')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>SEO Setting</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{route('subcategory.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Website Setting</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{route('childcategory.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Page Design</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{route('brand.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>SMTP Setting</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{route('brand.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Payment Gateway</p>
+                </a>
+              </li>
+            </ul>
+          </li>
           <li class="nav-header">Profile</li>
           <li class="nav-item">
             <a href="{{route('admin.password.change')}}" class="nav-link">
@@ -94,3 +145,17 @@
     </div>
     <!-- /.sidebar -->
   </aside>
+
+  <script>
+    $(".item").click(function() {
+    var $items = $('li'), $next;
+    var target = $(this).data('key') + 1 ;
+    $items.removeClass('selected')
+    if (target >= $items.length) {
+        $next = $items[0];
+    } else {
+        $next = $items[target];
+    }
+    $next.classList.add('selected');
+    });
+  </script>

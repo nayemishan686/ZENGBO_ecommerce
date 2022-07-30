@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Controllers\admin\CategoryController;
-use App\Http\Controllers\admin\SubCategoryController;
-use App\Models\SubCategory;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,25 +28,25 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
     Route::post('/admin/password/update', 'AdminController@passwordUpdate')->name('admin.password.update');
 
     // Category CRUD
-    Route::group(['prefix' => 'category'], function(){
+    Route::group(['prefix' => 'category'], function () {
         Route::get('/index', 'CategoryController@index')->name('category.index');
         Route::post('/store', 'CategoryController@store')->name('category.store');
         Route::get('/destroy/{id}', 'CategoryController@destroy')->name('category.delete');
-        Route::get('/edit/{id}','CategoryController@edit');
+        Route::get('/edit/{id}', 'CategoryController@edit');
         Route::post('/update', 'CategoryController@update')->name('category.update');
     });
 
     // SubCategory CRUD
-    Route::group(['prefix' => 'subcategory'], function(){
+    Route::group(['prefix' => 'subcategory'], function () {
         Route::get('/index', 'SubCategoryController@index')->name('subcategory.index');
         Route::post('/store', 'SubCategoryController@store')->name('subcategory.store');
         Route::get('/destroy/{id}', 'SubCategoryController@destroy')->name('subcategory.delete');
         Route::get('/edit/{id}', 'SubCategoryController@edit');
         Route::post('/update', 'SubCategoryController@update')->name('subcategory.update');
     });
-    
+
     // ChildCategory CRUD
-    Route::group(['prefix' => 'childcategory'], function(){
+    Route::group(['prefix' => 'childcategory'], function () {
         Route::get('/index', 'ChildCategoryController@index')->name('childcategory.index');
         Route::post('/store', 'ChildCategoryController@store')->name('childcategory.store');
         Route::get('/destroy/{id}', 'ChildCategoryController@destroy')->name('childcategory.delete');
@@ -58,12 +55,21 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
     });
 
     // BRAND CRUD
-    Route::group(['prefix' => 'brand'], function(){
+    Route::group(['prefix' => 'brand'], function () {
         Route::get('/index', 'BrandController@index')->name('brand.index');
         Route::post('/store', 'BrandController@store')->name('brand.store');
         Route::get('/destroy/{id}', 'BrandController@destroy')->name('brand.delete');
         Route::get('/edit/{id}', 'BrandController@edit');
         Route::post('/update', 'BrandController@update')->name('brand.update');
+    });
+
+    // Setting
+    Route::group(['prefix' => 'setting'], function () {
+        // SEO
+        Route::group(['prefix' => 'seo'], function () {
+            Route::get('/seo', 'SettingController@seoIndex')->name('seo.setting');
+            Route::post('/update/{id}', 'SettingController@seoUpdate')->name('seo.setting.update');
+        });
     });
 
 });
