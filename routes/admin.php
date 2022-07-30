@@ -25,6 +25,10 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
     Route::get('/admin/home', 'AdminController@adminHome')->name('admin.home');
     // Admin Logout
     Route::get('/admin/logout', 'AdminController@logout')->name('admin.logout');
+    // Admin Password Change
+    Route::get('/admin/password/change', 'AdminController@adminPassword')->name('admin.password.change');
+    // Admin Password Update
+    Route::post('/admin/password/update', 'AdminController@passwordUpdate')->name('admin.password.update');
 
     // Category CRUD
     Route::group(['prefix' => 'category'], function(){

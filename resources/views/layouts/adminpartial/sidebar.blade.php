@@ -71,21 +71,21 @@
           </li>
           <li class="nav-header">Profile</li>
           <li class="nav-item">
-            <a href="{{route('admin.logout')}}" class="nav-link" id="logout">
-              <i class="nav-icon far fa-circle text-danger"></i>
-              <p class="text">Log Out</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{route('admin.password.change')}}" class="nav-link">
               <i class="nav-icon far fa-circle text-warning"></i>
-              <p>Warning</p>
+              <p>Change Password</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon far fa-circle text-info"></i>
               <p>Informational</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('admin.logout')}}" class="nav-link" id="logout">
+              <i class="nav-icon far fa-circle text-danger"></i>
+              <p class="text">Log Out</p>
             </a>
           </li>
         </ul>
