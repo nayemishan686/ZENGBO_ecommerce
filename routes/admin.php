@@ -70,6 +70,12 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
             Route::get('/seo', 'SettingController@seoIndex')->name('seo.setting');
             Route::post('/update/{id}', 'SettingController@seoUpdate')->name('seo.setting.update');
         });
+
+        // SMTP Setting
+        Route::group(['prefix' => 'smtp'], function () {
+            Route::get('/', 'SettingController@smtpIndex')->name('smtp.setting');
+            Route::post('/update/{id}', 'SettingController@smtpUpdate')->name('smtp.setting.update');
+        });
     });
 
 });

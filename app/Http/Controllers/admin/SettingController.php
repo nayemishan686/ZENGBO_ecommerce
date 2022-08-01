@@ -17,6 +17,7 @@ class SettingController extends Controller
         $this->middleware('auth');
     }
 
+    // SEO Setting Start
     // SEO Show
     public function seoIndex(){
         $data = DB::table('seos')->first();
@@ -43,5 +44,26 @@ class SettingController extends Controller
         DB::table('seos')->where('id', $id)->update($data);
         $notification = ['messege' => 'SEO Setting Updated Successfully', 'alert-type' => 'success'];
         return redirect()->back()->with($notification);
+    }
+    // SEO Setting END
+
+    // SMTP setting start
+    // SMTP show
+    public function smtpIndex(){
+        $smtp = DB::table('smtps')->first();
+        return view('admin.setting.smtp_setting',compact('smtp'));
+    }
+
+    // SMTP update
+    public function smtpUpdate(Request $request, $id){
+        $data = [];
+        $data['mailer'] = $request->mailer_name;
+        $data['host'] = $request->host_name;
+        $data['port'] = $request->port_name;
+        $data['user_name'] = $request->user_name;
+        $data['password'] = $request->password;
+        DB::table('smtps')->where('id', $id)->update($data);
+        $notification = ['messege' => 'SMTP Setting Updated Successfully', 'alert-type' => 'success'];
+        return redirect()->back()->with($notification); 
     }
 }
