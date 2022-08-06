@@ -77,7 +77,7 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
             Route::post('/update/{id}', 'SettingController@smtpUpdate')->name('smtp.setting.update');
         });
 
-        // SMTP Setting
+        // Page Setting
         Route::group(['prefix' => 'page'], function () {
             Route::get('/', 'SettingController@pageIndex')->name('page.index');
             Route::get('/create', 'SettingController@pageCreate')->name('page.create');
@@ -85,6 +85,12 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
             Route::get('/destroy/{id}', 'SettingController@pageDestroy')->name('page.delete');
             Route::get('/edit/{id}', 'SettingController@pageEdit')->name('page.edit');
             Route::post('/update{id}', 'SettingController@pageUpdate')->name('page.update');
+        });
+
+        // SMTP Setting
+        Route::group(['prefix' => 'websitesetting'], function () {
+            Route::get('/', 'SettingController@website')->name('website.setting');
+            Route::post('/update/{id}', 'SettingController@websiteUpdate')->name('website.setting.update');
         });
     });
 
