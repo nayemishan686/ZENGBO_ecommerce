@@ -80,29 +80,25 @@ class BrandController extends Controller {
 
     // update Brand
     public function update(Request $request) {
-        $validated = $request->validate([
-            'brand_name' => 'required|unique:brands,brand_name',
-        ]);
         $slug               = Str::slug($request->brand_name, '-');
         $data               = [];
         $data['brand_name'] = $request->brand_name;
         $data['brand_slug'] = $slug;
         if ($request->brand_logo) {
-            if (File::exists(public_path($request->old_logo))) {
-                unlink(public_path($request->old_logo));
+            $image = $request->old_logo;
+            if (File::exists(public_path($image))) {
+                unlink(public_path($image));
             }
             $photo     = $request->brand_logo;
             $photoname = $slug . '.' . $photo->getClientOriginalExtension();
             Image::make($photo)->resize(240, 120)->save('files/brands/' . $photoname);
             $data['brand_logo'] = '/files/brands/' . $photoname;
-            DB::table('brands')->where('id', $request->brand_id)->update($data);
-            $notification = ['messege' => 'Brands Updated Successfully', 'alert-type' => 'success'];
-            return redirect()->back()->with($notification);
         } else {
             $data['brand_logo'] = $request->old_logo;
-            DB::table('brands')->where('id', $request->brand_id)->update($data);
-            $notification = ['messege' => 'Brands Updated Successfully', 'alert-type' => 'success'];
-            return redirect()->back()->with($notification);
         }
+        
+        DB::table('brands')->where('id', $request->brand_id)->update($data);
+        $notification = ['messege' => 'Brands Updated Successfully', 'alert-type' => 'success'];
+        return redirect()->back()->with($notification);
     }
 }
