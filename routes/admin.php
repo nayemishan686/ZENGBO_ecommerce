@@ -53,6 +53,16 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
         Route::get('/edit/{id}', 'ChildCategoryController@edit');
         Route::post('/update', 'ChildCategoryController@update')->name('childcategory.update');
     });
+    
+    
+    // Warehouse CRUD
+    Route::group(['prefix' => 'warehouse'], function () {
+        Route::get('/', 'WareHouseController@index')->name('warehouse.index');
+        Route::post('/store', 'WareHouseController@store')->name('warehouse.store');
+        Route::get('/destroy/{id}', 'WareHouseController@destroy')->name('warehouse.delete');
+        Route::get('/edit/{id}', 'WareHouseController@edit');
+        Route::post('/update', 'WareHouseController@update')->name('warehouse.update');
+    });
 
     // BRAND CRUD
     Route::group(['prefix' => 'brand'], function () {

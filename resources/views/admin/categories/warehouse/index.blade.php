@@ -7,14 +7,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">SubCategory Table</h1>
+                        <h1 class="m-0">Warehouse Table</h1>
                     </div>
                     <!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#childcategoryModal">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#warehouseModal">
                                 Add New
                             </button>
                         </ol>
@@ -31,7 +30,7 @@
                             <!-- /.card -->
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">All SubCategories</h3>
+                                    <h3 class="card-title">All Warehouse</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -39,10 +38,9 @@
                                         <thead>
                                             <tr>
                                                 <th>SL</th>
-                                                <th>Child Category Name</th>
-                                                <th>Child Category Slug</th>
-                                                <th>Category Name</th>
-                                                <th>Sub Category name</th>
+                                                <th>Warehouse Name</th>
+                                                <th>Warehouse Address</th>
+                                                <th>Warehouse Phone</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -60,8 +58,7 @@
         </div>
 
         <!-- Child Category Add Modal -->
-        <div class="modal fade" id="childcategoryModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="warehouseModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -70,37 +67,30 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="{{ route('childcategory.store') }}" method="POST">
+                    <form action="{{ route('warehouse.store') }}" method="POST" id="add_form">
                         @csrf
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="category_id">Category/SubCategory Name</label>
-                                <select name="subcategory_id" id="subcategory_id" class="form-control">
-                                    <option value="0" selected disabled>Select One</option>
-                                    @foreach ($category as $cat)
-                                        @php
-                                            $subcategory = DB::table('sub_categories')
-                                                ->where('category_id', $cat->id)
-                                                ->get();
-                                        @endphp
-                                        <option disabled style="color: rgb(255, 0, 0)">{{ $cat->category_name }}</option>
-                                        @foreach ($subcategory as $subcat)
-                                            <option value="{{ $subcat->id }}">---{{ $subcat->subcategory_name }}</option>
-                                        @endforeach
-                                    @endforeach
-                                </select>
+                                <label for="warehouse_name">Warehouse Name</label>
+                                <input type="text" class="form-control" id="warehouse_name" name="warehouse_name"
+                                    placeholder="Enter Warehouse Name" required>
                             </div>
-                        </div>
-                        <div class="modal-body">
+
                             <div class="form-group">
-                                <label for="subcategory_name">ChildCategory Name</label>
-                                <input type="text" class="form-control" id="childcategory_name" name="childcategory_name"
-                                    placeholder="SubCategory Name">
+                                <label for="warehouse_address">Warehouse Address</label>
+                                <textarea class="form-control" name="warehouse_address" cols="30" rows="5" required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="warehouse_phone">Warehouse Phone</label>
+                                <input type="text" class="form-control" id="warehouse_phone" name="warehouse_phone"
+                                    placeholder="Enter Warehouse Phone" required>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="Submit" class="btn btn-primary"> <span class="d-none loader"><i
+                                        class="fas fa-spinner"></i> Loading..</span> <span class="submit_btn"> Submit
+                                </span> </button>
                         </div>
                     </form>
                 </div>
@@ -113,7 +103,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Warehouse</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -131,30 +121,26 @@
         <!-- Category Index AJAX -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script type="text/javascript">
-            $(function childcategory() {
+            $(function warehouse() {
                 var table = $('.ytable').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ route('childcategory.index') }}",
+                    ajax: "{{ route('warehouse.index') }}",
                     columns: [{
                             data: 'DT_RowIndex',
                             name: 'DT_RowIndex'
                         },
                         {
-                            data: 'childcategory_name',
-                            name: 'childcategory_name'
+                            data: 'warehouse_name',
+                            name: 'warehouse_name'
                         },
                         {
-                            data: 'childcategory_slug',
-                            name: 'childcategory_slug'
+                            data: 'warehouse_address',
+                            name: 'warehouse_address'
                         },
                         {
-                            data: 'category_name',
-                            name: 'category_name'
-                        },
-                        {
-                            data: 'subcategory_name',
-                            name: 'subcategory_name'
+                            data: 'warehouse_phone',
+                            name: 'warehouse_phone'
                         },
                         {
                             data: 'action',
@@ -163,15 +149,19 @@
                             orderable: true
                         },
                     ]
-                });
-            });
-
+                })
+            })
 
             $('body').on('click', '.edit', function(data) {
-                let childcat_id = $(this).data('id');
-                $.get("edit/" + childcat_id, function(data) {
+                let warehouse_id = $(this).data('id');
+                $.get("warehouse/edit/" + warehouse_id, function(data) {
                     $("#modal_body").html(data);
                 });
             });
+
+            $('#add_form').on('submit', function() {
+                $('.loader').removeClass('d-none')
+                $('.submit_btn').addClass('d-none')
+            })
         </script>
     @endsection
