@@ -27,7 +27,7 @@ class CouponController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function($coupon){
                 $action_btn ='<a href="" class="btn btn-primary edit" data-id= "'.$coupon->id.'"data-toggle="modal" data-target="#editModal"><i
-                class="fas fa-edit"></i></a> <a href="'.route('warehouse.delete', [$coupon->id]).'" class="btn btn-danger" id="delete"><i class="fas fa-trash"></i></a>';
+                class="fas fa-edit"></i></a> <a href="'.route('coupon.delete', [$coupon->id]).'" class="btn btn-danger" id="delete"><i class="fas fa-trash"></i></a>';
                 return $action_btn;
             })
             ->rawColumns(['action'])
@@ -37,5 +37,11 @@ class CouponController extends Controller
         return view('admin.offers.coupon.index');
     }
 
+    
+    // Coupon Delete
+    public function destroy($id){
+        DB::table('coupons')->where('id', $id)->delete();
+        return response()->json('Coupon deleted!');
+    }
 
 }

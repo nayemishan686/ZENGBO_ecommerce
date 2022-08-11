@@ -49,6 +49,9 @@
 
                                         </tbody>
                                     </table>
+                                    <form action="" method="delete" id="deleted_form">
+                                        @csrf @method('DELETE')
+                                    </form>
                                 </div>
                                 <!-- /.card-body -->
                             </div>
@@ -129,7 +132,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script type="text/javascript">
             $(function coupon() {
-                var table = $('.ytable').DataTable({
+                 table = $('.ytable').DataTable({
                     processing: true,
                     serverSide: true,
                     ajax: "{{ route('coupon.index') }}",
@@ -174,5 +177,47 @@
                 $('.loader').removeClass('d-none')
                 $('.submit_btn').addClass('d-none')
             })
+        </script>
+
+        {{-- Delete with ajax --}}
+        <script type="text/javascript">
+            $(document).ready(function() {
+                // swal open
+                $(document).on("click", "#delete", function(e) {
+                    e.preventDefault();
+                    var url = $(this).attr("href");
+                    $("#deleted_form").attr('action',url);
+                    swal({
+                            title: "Are you Want to delete?",
+                            text: "Once Delete, This will be Permanently Delete!",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                $("#deleted_form").submit();
+                            } else {
+                                swal("Safe Data!");
+                            }
+                        });
+                });
+
+                // Data passed through here
+                $('#deleted_form').submit(function(e){
+                    e.preventDefault();
+                    var url = $(this).attr('action');
+                    var request = $(this).serialize();
+                    $.ajax({
+                        url: url,
+                        type: 'post',
+                        data: request,
+                        success:function(data){
+                            $('#deleted_form')[0].reset();
+                            table.ajax.reload();
+                        }
+                    });
+                });
+            });
         </script>
     @endsection
