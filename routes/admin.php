@@ -29,7 +29,7 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
 
     // Category CRUD
     Route::group(['prefix' => 'category'], function () {
-        Route::get('/index', 'CategoryController@index')->name('category.index');
+        Route::get('/', 'CategoryController@index')->name('category.index');
         Route::post('/store', 'CategoryController@store')->name('category.store');
         Route::get('/destroy/{id}', 'CategoryController@destroy')->name('category.delete');
         Route::get('/edit/{id}', 'CategoryController@edit');
@@ -38,7 +38,7 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
 
     // SubCategory CRUD
     Route::group(['prefix' => 'subcategory'], function () {
-        Route::get('/index', 'SubCategoryController@index')->name('subcategory.index');
+        Route::get('/', 'SubCategoryController@index')->name('subcategory.index');
         Route::post('/store', 'SubCategoryController@store')->name('subcategory.store');
         Route::get('/destroy/{id}', 'SubCategoryController@destroy')->name('subcategory.delete');
         Route::get('/edit/{id}', 'SubCategoryController@edit');
@@ -47,7 +47,7 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
 
     // ChildCategory CRUD
     Route::group(['prefix' => 'childcategory'], function () {
-        Route::get('/index', 'ChildCategoryController@index')->name('childcategory.index');
+        Route::get('/', 'ChildCategoryController@index')->name('childcategory.index');
         Route::post('/store', 'ChildCategoryController@store')->name('childcategory.store');
         Route::get('/destroy/{id}', 'ChildCategoryController@destroy')->name('childcategory.delete');
         Route::get('/edit/{id}', 'ChildCategoryController@edit');
@@ -66,11 +66,21 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
 
     // BRAND CRUD
     Route::group(['prefix' => 'brand'], function () {
-        Route::get('/index', 'BrandController@index')->name('brand.index');
+        Route::get('/', 'BrandController@index')->name('brand.index');
         Route::post('/store', 'BrandController@store')->name('brand.store');
         Route::get('/destroy/{id}', 'BrandController@destroy')->name('brand.delete');
         Route::get('/edit/{id}', 'BrandController@edit');
         Route::post('/update', 'BrandController@update')->name('brand.update');
+    });
+
+    // Offers Section
+    // coupon CRUD
+    Route::group(['prefix' => 'coupon'], function () {
+        Route::get('/', 'CouponController@index')->name('coupon.index');
+        // Route::post('/store', 'CouponController@store')->name('coupon.store');
+        // Route::get('/destroy/{id}', 'CouponController@destroy')->name('coupon.delete');
+        // Route::get('/edit/{id}', 'CouponController@edit');
+        // Route::post('/update', 'CouponController@update')->name('coupon.update');
     });
 
     // Setting
