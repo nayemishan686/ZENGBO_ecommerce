@@ -7,13 +7,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Warehouse Table</h1>
+                        <h1 class="m-0">Coupon Table</h1>
                     </div>
                     <!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#warehouseModal">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">
                                 Add New
                             </button>
                         </ol>
@@ -30,7 +30,7 @@
                             <!-- /.card -->
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">All Warehouse</h3>
+                                    <h3 class="card-title">All Coupon</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -62,39 +62,50 @@
         </div>
 
         <!-- Child Category Add Modal -->
-        <div class="modal fade" id="warehouseModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add New ChildCategory</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Add New Coupon</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="{{ route('warehouse.store') }}" method="POST" id="add_form">
+                    <form action="{{ route('coupon.store') }}" method="POST" id="add_form">
                         @csrf
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="warehouse_name">Coupon Code</label>
-                                <input type="text" class="form-control" id="warehouse_name" name="warehouse_name"
-                                    placeholder="Enter Warehouse Name" required>
+                                <label for="coupon_code">Coupon Code</label>
+                                <input type="text" class="form-control" id="coupon_code" name="coupon_code"
+                                    placeholder="Enter Coupon Code" required>
                             </div>
 
                             <div class="form-group">
-                                <label for="warehouse_address">Coupon Amount</label>
-                                <textarea class="form-control" name="warehouse_address" cols="30" rows="5" required></textarea>
+                                <label for="coupon_type">Coupon Type </label>
+                                <select class="form-control" name="coupon_type" required>
+                                    <option value="1">Fixed</option>
+                                    <option value="2">Percentage</option>
+                                </select>
                             </div>
 
                             <div class="form-group">
-                                <label for="warehouse_phone">Coupon Date</label>
-                                <input type="text" class="form-control" id="warehouse_phone" name="warehouse_phone"
-                                    placeholder="Enter Warehouse Phone" required>
+                                <label for="coupon_amount">Coupon Amount</label>
+                                <input type="text" class="form-control" id="coupon_amount" name="coupon_amount"
+                                    placeholder="Enter Coupon Amount" required>
                             </div>
 
                             <div class="form-group">
-                                <label for="warehouse_phone">Coupon Status</label>
-                                <input type="text" class="form-control" id="warehouse_phone" name="warehouse_phone"
-                                    placeholder="Enter Warehouse Phone" required>
+                                <label for="coupon_date">Coupon Date</label>
+                                <input type="date" class="form-control" id="coupon_date" name="coupon_date"
+                                     required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="coupon_status">Coupon Status </label>
+                                <select class="form-control" name="coupon_status" required>
+                                    <option value="active">Active</option>
+                                    <option value="deactive">Deactive</option>
+                                </select>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -113,7 +124,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit Warehouse</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Coupon</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -131,6 +142,7 @@
         <!-- Category Index AJAX -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script type="text/javascript">
+        // Coupon table index
             $(function coupon() {
                  table = $('.ytable').DataTable({
                     processing: true,
@@ -166,13 +178,33 @@
                 })
             })
 
+            //Coupon add with ajax
+            $('#add_form').submit(function(e){
+                    e.preventDefault();
+                    var url = $(this).attr('action');
+                    var request = $(this).serialize();
+                    $.ajax({
+                        url: url,
+                        type: 'post',
+                        data: request,
+                        success:function(data){
+                            toastr.success(data);
+                            $("#addModal").modal('hide');
+                            $('#add_form')[0].reset();
+                            table.ajax.reload();
+                        }
+                    });
+                }); 
+
+            // Edit Coupon
             $('body').on('click', '.edit', function(data) {
-                let warehouse_id = $(this).data('id');
-                $.get("warehouse/edit/" + warehouse_id, function(data) {
+                let coupon_id = $(this).data('id');
+                $.get("coupon/edit/" + coupon_id, function(data) {
                     $("#modal_body").html(data);
                 });
             });
 
+            //Button effect 
             $('#add_form').on('submit', function() {
                 $('.loader').removeClass('d-none')
                 $('.submit_btn').addClass('d-none')
@@ -213,6 +245,7 @@
                         type: 'post',
                         data: request,
                         success:function(data){
+                            toastr.success(data);
                             $('#deleted_form')[0].reset();
                             table.ajax.reload();
                         }

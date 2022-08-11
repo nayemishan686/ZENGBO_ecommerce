@@ -77,10 +77,10 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
     // coupon CRUD
     Route::group(['prefix' => 'coupon'], function () {
         Route::get('/', 'CouponController@index')->name('coupon.index');
-        // Route::post('/store', 'CouponController@store')->name('coupon.store');
+        Route::post('/store', 'CouponController@store')->name('coupon.store');
         Route::delete('/destroy/{id}', 'CouponController@destroy')->name('coupon.delete');
-        // Route::get('/edit/{id}', 'CouponController@edit');
-        // Route::post('/update', 'CouponController@update')->name('coupon.update');
+        Route::get('/edit/{id}', 'CouponController@edit');
+        Route::post('/update', 'CouponController@update')->name('coupon.update');
     });
 
     // Setting
