@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('brand_id')->nullable();
             $table->integer('warehouse')->nullable();
             $table->integer('admin_id')->nullable();
+            $table->integer('pickup_point')->nullable();
             $table->string('name')->nullable();
             $table->string('code')->nullable();
             $table->string('unit')->nullable();
@@ -37,6 +38,8 @@ return new class extends Migration
             $table->integer('status')->nullable();
             $table->integer('flash_deal_id')->nullable();
             $table->integer('cash_on_delivery')->nullable();
+            $table->integer('color')->nullable();
+            $table->integer('size')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

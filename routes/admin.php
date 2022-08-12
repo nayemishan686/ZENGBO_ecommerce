@@ -73,6 +73,16 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
         Route::post('/update', 'BrandController@update')->name('brand.update');
     });
 
+    // Product section
+    // pickup point CRUD
+    Route::group(['prefix' => 'product'], function () {
+        Route::get('/create', 'ProductController@create')->name('product.create');
+        // Route::post('/store', 'ProductController@store')->name('pickuppoint.store');
+        // Route::delete('/destroy/{id}', 'ProductController@destroy')->name('pickuppoint.delete');
+        // Route::get('/edit/{id}', 'ProductController@edit');
+        // Route::post('/update', 'ProductController@update')->name('pickuppoint.update');
+    });
+
     // Pickup Point Section
     // pickup point CRUD
     Route::group(['prefix' => 'pickuppoint'], function () {

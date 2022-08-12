@@ -18,4 +18,14 @@ class ProductController extends Controller
     public function __construct() {
         $this->middleware('auth');
     }
+
+    // Product create page
+    public function create(){
+        $category = DB::table('categories')->get();
+        $brand = DB::table('brands')->get();
+        $pickuppoint = DB::table('pickuppoints')->get();
+        $warehouse = DB::table('warehouses')->get();
+        return view('admin.product.create', compact('category','brand','pickuppoint','warehouse'));
+
+    }
 }
