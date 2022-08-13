@@ -81,8 +81,11 @@
                                         <div class="form-group col-lg-6">
                                             <label for="exampleInputEmail1">Category<span class="text-danger">*</span>
                                             </label>
-                                            <select class="form-control" name="subcategory_id" id="subcategory_id">
-                                                <option disabled="" selected="">==choose category==</option>
+                                            <select class="form-control" name="category_id" id="category_id">
+                                                <option disabled="" selected="">Select Category</option>
+                                                @foreach($category as $cat)
+                                                <option value="{{$cat->id}}">{{$cat->category_name}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group col-lg-6">
@@ -104,14 +107,22 @@
                                         <div class="form-group col-lg-6">
                                             <label for="exampleInputEmail1">Brand <span class="text-danger">*</span>
                                             </label>
-                                            <select class="form-control" name="brand_id">
+                                            <select class="form-control" name="brand_id" id="brand_id">
+                                                <option disabled="" selected="">Select Brand</option>
+                                                @foreach($brand as $brand)
+                                                    <option value="{{$brand->id}}">{{$brand->brand_name}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-lg-6">
                                             <label for="exampleInputPassword1">Pickup Point</label>
-                                            <select class="form-control" name="pickup_point_id">
+                                            <select class="form-control" name="pickup_point_id" id="pickup_point_id">
+                                                <option disabled selected>Select Pickup Point</option>
+                                                @foreach($pickuppoint as $pickpoint)
+                                                    <option value="{{$pickpoint->id}}">{{$pickpoint->pickUpPointName}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group col-lg-6">
@@ -151,6 +162,10 @@
                                             <label for="exampleInputEmail1">Warehouse <span class="text-danger">*</span>
                                             </label>
                                             <select class="form-control" name="warehouse">
+                                                <option disabled selected>Select Warehouse</option>
+                                                @foreach($warehouse as $warehouse)
+                                                    <option value="{{$warehouse->id}}">{{$warehouse->warehouse_name}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group col-lg-6">
@@ -264,7 +279,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
-    <script src="{{ asset('public/backend') }}/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+    <script src="{{ asset('admin') }}/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 
 
     <script type="text/javascript">
