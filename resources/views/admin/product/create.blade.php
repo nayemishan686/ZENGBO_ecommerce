@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 
 @section('admin_content')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.6.0/bootstrap-tagsinput.css"
-        integrity="sha512-3uVpgbpX33N/XhyD3eWlOgFVAraGn3AfpxywfOTEQeBDByJ/J7HkLvl4mJE1fvArGh4ye1EiPfSBnJo2fgfZmg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script type="text/javascript"
-        src="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" />
+    <link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
+
+
     <style type="text/css">
         .bootstrap-tagsinput .tag {
             background: #428bca;
@@ -37,21 +37,10 @@
                 </div>
             </div><!-- /.container-fluid -->
         </section>
-
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <!-- left column -->
@@ -67,33 +56,47 @@
                                         <div class="form-group col-lg-6">
                                             <label for="exampleInputEmail1">Product Name <span class="text-danger">*</span>
                                             </label>
-                                            <input type="text" class="form-control" name="name"
-                                                value="{{ old('name') }}" required="">
+                                            <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                                name="name" value="{{ old('name') }}" placeholder="Enter Product Name">
+                                            @error('name')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="exampleInputPassword1">Product Code <span
                                                     class="text-danger">*</span> </label>
-                                            <input type="text" class="form-control" value="{{ old('code') }}"
-                                                name="code" required="">
+                                            <input type="text" class="form-control @error('code') is-invalid @enderror"
+                                                value="{{ old('code') }}" name="code" placeholder="Enter Product Code">
+                                            @error('code')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-lg-6">
                                             <label for="exampleInputEmail1">Category<span class="text-danger">*</span>
                                             </label>
-                                            <select class="form-control" name="category_id" id="category_id">
+                                            <select class="form-control @error('category_id') is-invalid @enderror"
+                                                name="category_id" id="category_id">
                                                 <option disabled="" selected="">Select Category</option>
                                                 @foreach ($category as $cat)
                                                     <option value="{{ $cat->id }}">{{ $cat->category_name }}</option>
                                                 @endforeach
                                             </select>
+                                            @error('category_id')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="subcategory_id">Subcategory<span class="text-danger">*</span>
                                             </label>
-                                            <select class="form-control" name="subcategory_id" id="subcategory_id">
-
+                                            <select class="form-control @error('subcategory_id') is-invalid @enderror"
+                                                name="subcategory_id" id="subcategory_id">
+                                                <option disabled="" selected="">Select SubCategory</option>
                                             </select>
+                                            @error('subcategory_id')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row">
@@ -101,18 +104,22 @@
                                             <label for="exampleInputPassword1">Child category<span
                                                     class="text-danger">*</span> </label>
                                             <select class="form-control" name="childcategory_id" id="childcategory_id">
-
+                                                <option disabled="" selected="">Select ChildCategory</option>
                                             </select>
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="exampleInputEmail1">Brand <span class="text-danger">*</span>
                                             </label>
-                                            <select class="form-control" name="brand_id" id="brand_id">
+                                            <select class="form-control @error('brand_id') is-invalid @enderror"
+                                                name="brand_id" id="brand_id">
                                                 <option disabled="" selected="">Select Brand</option>
                                                 @foreach ($brand as $brand)
                                                     <option value="{{ $brand->id }}">{{ $brand->brand_name }}</option>
                                                 @endforeach
                                             </select>
+                                            @error('brand_id')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row">
@@ -128,8 +135,8 @@
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="exampleInputEmail1">Unit <span class="text-danger">*</span> </label>
-                                            <input type="text" class=form-control name="unit"
-                                                value="{{ old('unit') }}" required="">
+                                            <input type="number" class=form-control name="unit"
+                                                value="{{ old('unit') }}" placeholder="Enter Product Unit">
                                         </div>
 
                                     </div>
@@ -137,63 +144,88 @@
                                         <div class="form-group col-lg-6">
                                             <label for="exampleInputPassword1">Tags</label><br>
                                             <input type="text" name="tags" class="form-control"
-                                                value="{{ old('tags') }}" data-role="tagsinput">
+                                                value="{{ old('tags') }}" data-role="tagsinput"
+                                                placeholder="Enter Tags">
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="exampleInput">Purchase Price </label>
-                                            <input type="text" class="form-control" {{ old('purchase_price') }}
-                                                name="purchase_price">
+                                            <input type="number" class="form-control" {{ old('purchase_price') }}
+                                                name="purchase_price" placeholder="Enter Purchase Price">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-lg-6">
                                             <label for="exampleInput">Selling Price <span class="text-danger">*</span>
                                             </label>
-                                            <input type="text" name="selling_price"
-                                                value="{{ old('selling_price') }}" class="form-control" required="">
+                                            <input type="number" name="selling_price"
+                                                value="{{ old('selling_price') }}"
+                                                class="form-control @error('selling_price') is-invalid @enderror"
+                                                placeholder="Enter Selling Price">
+                                            @error('selling_price')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="exampleInput">Discount Price </label>
-                                            <input type="text" name="discount_price"
-                                                value="{{ old('discount_price') }}" class="form-control">
+                                            <input type="number" name="discount_price"
+                                                value="{{ old('discount_price') }}" class="form-control"
+                                                placeholder="Enter Discount Price">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-lg-6">
                                             <label for="exampleInputEmail1">Warehouse <span class="text-danger">*</span>
                                             </label>
-                                            <select class="form-control" name="warehouse">
+                                            <select class="form-control @error('warehouse_id') is-invalid @enderror"
+                                                name="warehouse_id">
                                                 <option disabled selected>Select Warehouse</option>
                                                 @foreach ($warehouse as $warehouse)
                                                     <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}
                                                     </option>
                                                 @endforeach
                                             </select>
+                                            @error('warehouse_id')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="exampleInputPassword1">Stock</label>
                                             <input type="text" name="stock_quantity"
-                                                value="{{ old('stock_quantity') }}" class="form-control">
+                                                value="{{ old('stock_quantity') }}" class="form-control"
+                                                placeholder="Enter Stock Quantity">
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="form-group col-lg-6">
                                             <label for="exampleInputEmail1">Color</label><br>
-                                            <input type="text" class="form-control" value="{{ old('color') }}"
-                                                data-role="tagsinput" name="color" />
+                                            <input type="text"
+                                                class="form-control @error('color') is-invalid @enderror"
+                                                value="{{ old('color') }}" data-role="tagsinput" name="color"
+                                                placeholder="Enter Available Colour" />
+                                            @error('color')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="exampleInputPassword1">Size</label><br>
-                                            <input type="text" class="form-control" value="{{ old('size') }}"
-                                                data-role="tagsinput" name="size" />
+                                            <input type="text"
+                                                class="form-control @error('size') is-invalid @enderror"
+                                                value="{{ old('size') }}" data-role="tagsinput" name="size"
+                                                placeholder="Enter Available Size" />
+                                            @error('size')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="form-group col-lg-12">
                                             <label for="exampleInputPassword1">Product Details</label>
-                                            <textarea class="form-control textarea" name="description" id="summernote">{{ old('description') }}</textarea>
+                                            <textarea class="form-control textarea @error('description') is-invalid @enderror" name="description" id="summernote">{{ old('description') }}</textarea>
+                                            @error('description')
+                                                <div class="text text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -219,8 +251,11 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Main Thumbnail <span class="text-danger">*</span>
                                         </label><br>
-                                        <input type="file" name="thumbnail" required="" accept="image/*"
-                                            class="dropify">
+                                        <input type="file" name="thumbnail" accept="image/*"
+                                            class="dropify @error('thumbnail') is-invalid @enderror">
+                                        @error('thumbnail')
+                                            <div class="text text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div><br>
                                     <div class="">
                                         <table class="table table-bordered" id="dynamic_field">
@@ -228,7 +263,7 @@
                                                 <h3 class="card-title">More Images (Click Add For More Image)</h3>
                                             </div>
                                             <tr>
-                                                <td><input type="file" accept="image/*" name="image[]"
+                                                <td><input type="file" accept="image/*" name="images[]"
                                                         class="form-control name_list" /></td>
                                                 <td><button type="button" name="add" id="add"
                                                         class="btn btn-success">Add</button></td>
@@ -277,10 +312,10 @@
         </section>
         <!-- /.content -->
     </div>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
     <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
     <script src="{{ asset('admin') }}/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 
 
@@ -312,8 +347,8 @@
         });
 
 
-         // AJAX for childcategory data multiple dependency
-         $("#subcategory_id").change(function() {
+        // AJAX for childcategory data multiple dependency
+        $("#subcategory_id").click(function() {
             var id = $(this).val();
             $.ajax({
                 url: "{{ url('/get-child-category/') }}/" + id,

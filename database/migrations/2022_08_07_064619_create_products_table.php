@@ -19,10 +19,11 @@ return new class extends Migration
             $table->unsignedBigInteger('subcategory_id');
             $table->integer('childcategory_id')->nullable();
             $table->integer('brand_id')->nullable();
-            $table->integer('warehouse')->nullable();
+            $table->integer('warehouse_id')->nullable();
             $table->integer('admin_id')->nullable();
             $table->integer('pickup_point')->nullable();
             $table->string('name')->nullable();
+            $table->string('slug')->nullable();
             $table->string('code')->nullable();
             $table->string('unit')->nullable();
             $table->string('tags')->nullable();
@@ -32,7 +33,7 @@ return new class extends Migration
             $table->string('stock_quantity')->nullable();
             $table->string('description')->nullable();
             $table->string('thumbnail')->nullable();
-            $table->string('image')->nullable();
+            $table->string('images')->nullable();
             $table->string('video')->nullable();
             $table->integer('featured')->nullable();
             $table->integer('today_deal')->nullable();
@@ -41,8 +42,10 @@ return new class extends Migration
             $table->integer('status')->nullable();
             $table->integer('flash_deal_id')->nullable();
             $table->integer('cash_on_delivery')->nullable();
-            $table->integer('color')->nullable();
-            $table->integer('size')->nullable();
+            $table->string('color')->nullable();
+            $table->string('size')->nullable();
+            $table->string('date')->nullable();
+            $table->string('month')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

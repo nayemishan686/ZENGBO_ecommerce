@@ -81,7 +81,7 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
     // pickup point CRUD
     Route::group(['prefix' => 'product'], function () {
         Route::get('/create', 'ProductController@create')->name('product.create');
-        // Route::post('/store', 'ProductController@store')->name('pickuppoint.store');
+        Route::post('/store', 'ProductController@store')->name('product.store');
         // Route::delete('/destroy/{id}', 'ProductController@destroy')->name('pickuppoint.delete');
         // Route::get('/edit/{id}', 'ProductController@edit');
         // Route::post('/update', 'ProductController@update')->name('pickuppoint.update');
