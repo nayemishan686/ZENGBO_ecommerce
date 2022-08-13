@@ -36,6 +36,10 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
         Route::post('/update', 'CategoryController@update')->name('category.update');
     });
 
+    // Global route
+    Route::get('/get-sub-category/{id}', 'CategoryController@getSubCategory');
+    Route::get('/get-child-category/{id}', 'CategoryController@getChildCategory');
+
     // SubCategory CRUD
     Route::group(['prefix' => 'subcategory'], function () {
         Route::get('/', 'SubCategoryController@index')->name('subcategory.index');

@@ -83,8 +83,8 @@
                                             </label>
                                             <select class="form-control" name="category_id" id="category_id">
                                                 <option disabled="" selected="">Select Category</option>
-                                                @foreach($category as $cat)
-                                                <option value="{{$cat->id}}">{{$cat->category_name}}</option>
+                                                @foreach ($category as $cat)
+                                                    <option value="{{ $cat->id }}">{{ $cat->category_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -109,8 +109,8 @@
                                             </label>
                                             <select class="form-control" name="brand_id" id="brand_id">
                                                 <option disabled="" selected="">Select Brand</option>
-                                                @foreach($brand as $brand)
-                                                    <option value="{{$brand->id}}">{{$brand->brand_name}}</option>
+                                                @foreach ($brand as $brand)
+                                                    <option value="{{ $brand->id }}">{{ $brand->brand_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -118,10 +118,11 @@
                                     <div class="row">
                                         <div class="form-group col-lg-6">
                                             <label for="exampleInputPassword1">Pickup Point</label>
-                                            <select class="form-control" name="pickup_point_id" id="pickup_point_id">
+                                            <select class="form-control" name="pickup_point" id="pickup_point">
                                                 <option disabled selected>Select Pickup Point</option>
-                                                @foreach($pickuppoint as $pickpoint)
-                                                    <option value="{{$pickpoint->id}}">{{$pickpoint->pickUpPointName}}</option>
+                                                @foreach ($pickuppoint as $pickpoint)
+                                                    <option value="{{ $pickpoint->id }}">{{ $pickpoint->pickUpPointName }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -136,7 +137,7 @@
                                         <div class="form-group col-lg-6">
                                             <label for="exampleInputPassword1">Tags</label><br>
                                             <input type="text" name="tags" class="form-control"
-                                                value="{{ old('tags') }}" name="tags" data-role="tagsinput">
+                                                value="{{ old('tags') }}" data-role="tagsinput">
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="exampleInput">Purchase Price </label>
@@ -148,8 +149,8 @@
                                         <div class="form-group col-lg-6">
                                             <label for="exampleInput">Selling Price <span class="text-danger">*</span>
                                             </label>
-                                            <input type="text" name="selling_price" value="{{ old('selling_price') }}"
-                                                class="form-control" required="">
+                                            <input type="text" name="selling_price"
+                                                value="{{ old('selling_price') }}" class="form-control" required="">
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="exampleInput">Discount Price </label>
@@ -163,8 +164,9 @@
                                             </label>
                                             <select class="form-control" name="warehouse">
                                                 <option disabled selected>Select Warehouse</option>
-                                                @foreach($warehouse as $warehouse)
-                                                    <option value="{{$warehouse->id}}">{{$warehouse->warehouse_name}}</option>
+                                                @foreach ($warehouse as $warehouse)
+                                                    <option value="{{ $warehouse->id }}">{{ $warehouse->warehouse_name }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -226,7 +228,7 @@
                                                 <h3 class="card-title">More Images (Click Add For More Image)</h3>
                                             </div>
                                             <tr>
-                                                <td><input type="file" accept="image/*" name="images[]"
+                                                <td><input type="file" accept="image/*" name="image[]"
                                                         class="form-control name_list" /></td>
                                                 <td><button type="button" name="add" id="add"
                                                         class="btn btn-success">Add</button></td>
@@ -283,9 +285,47 @@
 
 
     <script type="text/javascript">
+        //ajax request send for collect childcategory
+
+
+
+
         $('.dropify').dropify(); //dropify image
         $("input[data-bootstrap-switch]").each(function() {
             $(this).bootstrapSwitch('state', $(this).prop('checked'));
+        });
+
+        // AJAX for subcategory data multiple dependency
+        $("#category_id").change(function() {
+            var id = $(this).val();
+            $.ajax({
+                url: "{{ url('/get-sub-category/') }}/" + id,
+                type: 'get',
+                success: function(data) {
+                    $('select[name="subcategory_id"]').empty();
+                    $.each(data, function(key, data) {
+                        $('select[name="subcategory_id"]').append('<option value="' + data
+                            .id + '">' + data.subcategory_name + '</option>');
+                    });
+                }
+            });
+        });
+
+
+         // AJAX for childcategory data multiple dependency
+         $("#subcategory_id").change(function() {
+            var id = $(this).val();
+            $.ajax({
+                url: "{{ url('/get-child-category/') }}/" + id,
+                type: 'get',
+                success: function(data) {
+                    $('select[name="childcategory_id"]').empty();
+                    $.each(data, function(key, data) {
+                        $('select[name="childcategory_id"]').append('<option value="' + data
+                            .id + '">' + data.childcategory_name + '</option>');
+                    });
+                }
+            });
         });
 
 

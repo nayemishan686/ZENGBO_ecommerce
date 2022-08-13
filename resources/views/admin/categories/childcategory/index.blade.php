@@ -7,7 +7,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">SubCategory Table</h1>
+                        <h1 class="m-0">ChildCategory Table</h1>
                     </div>
                     <!-- /.col -->
                     <div class="col-sm-6">
@@ -31,7 +31,7 @@
                             <!-- /.card -->
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">All SubCategories</h3>
+                                    <h3 class="card-title">All ChildCategories</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -113,7 +113,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Edit ChildCategory</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -169,7 +169,7 @@
 
             $('body').on('click', '.edit', function(data) {
                 let childcat_id = $(this).data('id');
-                $.get("edit/" + childcat_id, function(data) {
+                $.get("childcategory/edit/" + childcat_id, function(data) {
                     $("#modal_body").html(data);
                 });
             });

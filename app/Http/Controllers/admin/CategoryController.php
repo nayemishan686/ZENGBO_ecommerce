@@ -92,4 +92,16 @@ class CategoryController extends Controller
         return redirect()->back()->with($notification);
     }
 
+    // get subcategory
+    public function getSubCategory($id){
+        $data = DB::table('sub_categories')->where('category_id', $id)->get();
+        return response()->json($data);
+    } 
+    
+    // get ChildCategory
+    public function getChildCategory($id){
+        $data = DB::table('childcategories')->where('subcategory_id', $id)->get();
+        return response()->json($data);
+    }
+
 }
