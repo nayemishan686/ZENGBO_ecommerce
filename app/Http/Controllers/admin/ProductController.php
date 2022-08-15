@@ -41,23 +41,29 @@ class ProductController extends Controller {
                 })
                 ->editColumn('featured',function($row){
                     if($row->featured == 1){
-                        return 'yes';
+                        return '<a href="#" class="btn btn-danger btn-sm featured_deactive" data-id= "'.$row->id.'"><i
+                        class="fas fa-thumbs-down"></i></a> <span class="badge badge-success">active</span>';
                     }else{
-                        return 'no';
+                        return '<a href="#" class="btn btn-success btn-sm featured_active" data-id= "'.$row->id.'"><i
+                        class="fas fa-thumbs-up"></i></a> <span class="badge badge-danger">deactive</span>';
                     }
                 })
                 ->editColumn('today_deal',function($row){
                     if($row->today_deal == 1){
-                        return 'yes';
+                        return '<a href="#" class="btn btn-danger btn-sm deal_deactive" data-id= "'.$row->id.'"><i
+                        class="fas fa-thumbs-down"></i></a> <span class="badge badge-success">active</span>';
                     }else{
-                        return 'no';
+                        return '<a href="#" class="btn btn-success btn-sm deal_active" data-id= "'.$row->id.'"><i
+                        class="fas fa-thumbs-up"></i></a> <span class="badge badge-danger">deactive</span>';
                     }
                 })
                 ->editColumn('status',function($row){
                     if($row->status == 1){
-                        return 'yes';
+                        return '<a href="#" class="btn btn-danger btn-sm status_deactive" data-id= "'.$row->id.'"><i
+                        class="fas fa-thumbs-down"></i></a> <span class="badge badge-success">active</span>';
                     }else{
-                        return 'no';
+                        return '<a href="#" class="btn btn-success btn-sm status_active" data-id= "'.$row->id.'"><i
+                        class="fas fa-thumbs-up"></i></a> <span class="badge badge-danger">deactive</span>';
                     }
                 })
                 ->addColumn('action', function ($row) {
@@ -151,5 +157,42 @@ class ProductController extends Controller {
         $notification = ['messege' => 'Product Added Successfully', 'alert-type' => 'success'];
         return redirect()->back()->with($notification);
 
+    }
+
+
+    // Deactive Featured
+    public function deactive_featured($id){
+        DB::table('products')->where('id', $id)->update(['featured' => 0]);
+        return response()->json('Featured Product deactive');
+    }
+
+    // Active Featured
+    public function active_featured($id){
+        DB::table('products')->where('id', $id)->update(['featured' => 1]);
+        return response()->json('Featured Product active');
+    }
+
+    // Deactive Today deal
+    public function deal_deactive($id){
+        DB::table('products')->where('id', $id)->update(['today_deal' => 0]);
+        return response()->json('Today Deal Product deactive');
+    }
+
+    // Active Today deal
+    public function deal_active($id){
+        DB::table('products')->where('id', $id)->update(['today_deal' => 1]);
+        return response()->json('Today Deal Product active');
+    }
+
+    // Deactive status
+    public function status_deactive($id){
+        DB::table('products')->where('id', $id)->update(['status' => 0]);
+        return response()->json('Product Status deactive');
+    }
+
+    // Active status
+    public function status_active($id){
+        DB::table('products')->where('id', $id)->update(['status' => 1]);
+        return response()->json('Product Status active');
     }
 }

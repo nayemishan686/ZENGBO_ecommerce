@@ -37,17 +37,17 @@
                                     <table id="" class="table table-bordered table-striped table-sm ytable">
                                         <thead>
                                             <tr>
-                                            <th>SL</th>
-                                            <th>Thumbnail</th>
-                                            <th>Name</th>
-                                            <th>Code</th>
-                                            <th>Category</th>
-                                            <th>Subcategory</th>
-                                            <th>Brand</th>
-                                            <th>Featured</th>
-                                            <th>Today Deal</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
+                                                <th>SL</th>
+                                                <th>Thumbnail</th>
+                                                <th>Name</th>
+                                                <th>Code</th>
+                                                <th>Category</th>
+                                                <th>Subcategory</th>
+                                                <th>Brand</th>
+                                                <th>Featured</th>
+                                                <th>Today Deal</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -122,5 +122,97 @@
                     ]
                 })
             })
+        </script>
+
+        {{-- Active & deactive Featured,Today_deal,Status --}}
+        <script type="text/javascript">
+            $(document).ready(function() {
+                
+                // Deactive Featured
+                $('body').on('click', '.featured_deactive', function(data) {
+                    let featured_id = $(this).data('id');
+                    var url = "{{ url('product/deactive_featured') }}/" + featured_id;
+                    $.ajax({
+                        url: url,
+                        type: 'get',
+                        success: function(data) {
+                            toastr.success(data);
+                            table.ajax.reload();
+                        }
+                    });
+                });
+
+                // Active Featured
+                $('body').on('click', '.featured_active', function(data) {
+                    let featured_id = $(this).data('id');
+                    var url = "{{ url('product/active_featured') }}/" + featured_id;
+                    $.ajax({
+                        url: url,
+                        type: 'get',
+                        success: function(data) {
+                            toastr.success(data);
+                            table.ajax.reload();
+                        }
+                    });
+                });
+
+                // Deactive Today deal
+                $('body').on('click', '.deal_deactive', function(data) {
+                    let deal_id = $(this).data('id');
+                    var url = "{{ url('product/deactive_today_deal') }}/" + deal_id;
+                    $.ajax({
+                        url: url,
+                        type: 'get',
+                        success: function(data) {
+                            toastr.success(data);
+                            table.ajax.reload();
+                        }
+                    });
+                });
+
+                // Active Today deal
+                $('body').on('click', '.deal_active', function(data) {
+                    let deal_id = $(this).data('id');
+                    var url = "{{ url('product/active_today_deal') }}/" + deal_id;
+                    $.ajax({
+                        url: url,
+                        type: 'get',
+                        success: function(data) {
+                            toastr.success(data);
+                            table.ajax.reload();
+                        }
+                    });
+                });
+
+                // Deactive Status
+                $('body').on('click', '.status_deactive', function(data) {
+                    let status_id = $(this).data('id');
+                    var url = "{{ url('product/deactive_status') }}/" + status_id;
+                    $.ajax({
+                        url: url,
+                        type: 'get',
+                        success: function(data) {
+                            toastr.success(data);
+                            table.ajax.reload();
+                        }
+                    });
+                });
+
+                // Active Featured
+                $('body').on('click', '.status_active', function(data) {
+                    let status_id = $(this).data('id');
+                    var url = "{{ url('product/active_status') }}/" + status_id;
+                    $.ajax({
+                        url: url,
+                        type: 'get',
+                        success: function(data) {
+                            toastr.success(data);
+                            table.ajax.reload();
+                        }
+                    });
+                });
+
+
+            });
         </script>
     @endsection

@@ -85,6 +85,14 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
         // Route::delete('/destroy/{id}', 'ProductController@destroy')->name('pickuppoint.delete');
         // Route::get('/edit/{id}', 'ProductController@edit');
         // Route::post('/update', 'ProductController@update')->name('pickuppoint.update');
+        
+        // Active & Deactive Featured,Status,Today deal
+        Route::get('/deactive_featured/{id}', 'ProductController@deactive_featured');
+        Route::get('/active_featured/{id}', 'ProductController@active_featured');
+        Route::get('/deactive_today_deal/{id}', 'ProductController@deal_deactive');
+        Route::get('/active_today_deal/{id}', 'ProductController@deal_active');
+        Route::get('/deactive_status/{id}', 'ProductController@status_deactive');
+        Route::get('/active_status/{id}', 'ProductController@status_active');
     });
 
     // Pickup Point Section

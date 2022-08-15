@@ -26,7 +26,7 @@ class PickupPointController extends Controller
             return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function($pickup){
-                $action_btn ='<a href="" class="btn btn-primary edit" data-id= "'.$pickup->id.'"data-toggle="modal" data-target="#editModal"><i
+                $action_btn ='<a href="" class="btn btn-primary edit" data-id= "'.$pickup->id.'" data-toggle="modal" data-target="#editModal"><i
                 class="fas fa-edit"></i></a> <a href="'.route('pickuppoint.delete', [$pickup->id]).'" class="btn btn-danger" id="delete"><i class="fas fa-trash"></i></a>';
                 return $action_btn;
             })
