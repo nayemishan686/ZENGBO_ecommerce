@@ -44,6 +44,8 @@ class CategoryController extends Controller
             'category_name' => $request->category_name,
             'category_slug' => Str::slug($request->category_name, '-')
         ]);
+        $notification = array('messege' => 'Category Added Successfully', 'alert-type' => 'success');
+        return redirect()->back()->with($notification);
        
         
     }

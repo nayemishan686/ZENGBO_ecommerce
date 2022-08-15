@@ -57,8 +57,7 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
         Route::get('/edit/{id}', 'ChildCategoryController@edit');
         Route::post('/update', 'ChildCategoryController@update')->name('childcategory.update');
     });
-    
-    
+
     // Warehouse CRUD
     Route::group(['prefix' => 'warehouse'], function () {
         Route::get('/', 'WareHouseController@index')->name('warehouse.index');
@@ -78,8 +77,9 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
     });
 
     // Product section
-    // pickup point CRUD
+    // Product CRUD
     Route::group(['prefix' => 'product'], function () {
+        Route::get('/', 'ProductController@index')->name('product.index');
         Route::get('/create', 'ProductController@create')->name('product.create');
         Route::post('/store', 'ProductController@store')->name('product.store');
         // Route::delete('/destroy/{id}', 'ProductController@destroy')->name('pickuppoint.delete');

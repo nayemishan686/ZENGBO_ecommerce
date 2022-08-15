@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use File;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Image;
+use Yajra\DataTables\DataTables;
 
 class ProductController extends Controller {
     /**
@@ -17,6 +18,60 @@ class ProductController extends Controller {
      */
     public function __construct() {
         $this->middleware('auth');
+    }
+
+    // show all Product
+    public function index(Request $request) {
+        $imageUrl = 'files/products';
+        $data     = Product::all();
+        if ($request->ajax()) {
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->editColumn('thumbnail',function($row) use ($imageUrl){
+                    return '<img src="'.$imageUrl.'/'.$row->thumbnail.'"  height="40" width="60" >';
+                })
+                ->editColumn('category_name',function($row){
+                    return $row->category->category_name;
+                })
+                ->editColumn('subcategory_name',function($row){
+                    return $row->subcategory->subcategory_name;
+                })
+                ->editColumn('brand_name',function($row){
+                    return $row->brand->brand_name;
+                })
+                ->editColumn('featured',function($row){
+                    if($row->featured == 1){
+                        return 'yes';
+                    }else{
+                        return 'no';
+                    }
+                })
+                ->editColumn('today_deal',function($row){
+                    if($row->today_deal == 1){
+                        return 'yes';
+                    }else{
+                        return 'no';
+                    }
+                })
+                ->editColumn('status',function($row){
+                    if($row->status == 1){
+                        return 'yes';
+                    }else{
+                        return 'no';
+                    }
+                })
+                ->addColumn('action', function ($row) {
+                    $action_btn = '<a href="#" class="btn btn-primary edit"><i class="fas fa-edit"></i></a> 
+                    <a href="' . route('pickuppoint.delete', [$row->id]) . '" class="btn btn-danger" id="delete"><i class="fas fa-trash"></i></a> 
+                    <a href="#" class="btn btn-info edit"><i
+                class="fas fa-eye"></i></a>';
+                    return $action_btn;
+                })
+                ->rawColumns(['action','thumbnail','category_name','subcategory_name','brand_name','featured','today_deal','status'])
+                ->make([true]);
+        }
+
+        return view('admin.product.index');
     }
 
     // Product create page
@@ -81,17 +136,16 @@ class ProductController extends Controller {
         Image::make($thumbnail)->resize(600, 600)->save('files/products/' . $thumbnailname); //image intervention
         $data['thumbnail'] = $thumbnailname; // files/brand/plus-point.jpg
 
-
         //multiple images
-       $images = array();
-       if($request->hasFile('images')){
-           foreach ($request->file('images') as $key => $image) {
-               $imageName= hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-               Image::make($image)->resize(600,600)->save('files/products/'.$imageName);
-               array_push($images, $imageName);
-           }
-           $data['images'] = json_encode($images);
-       }
+        $images = [];
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $key => $image) {
+                $imageName = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+                Image::make($image)->resize(600, 600)->save('files/products/' . $imageName);
+                array_push($images, $imageName);
+            }
+            $data['images'] = json_encode($images);
+        }
 
         DB::table('products')->insert($data);
         $notification = ['messege' => 'Product Added Successfully', 'alert-type' => 'success'];
