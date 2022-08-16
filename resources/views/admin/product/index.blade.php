@@ -34,8 +34,8 @@
                                 </div>
                                 <div class="row p-2">
                                     <div class="form-group col-3">
-                                        <label for="Category_id">Category</label>
-                                        <select name="Category_id" id="Category_id" class="form-control">
+                                        <label for="category_id">Category</label>
+                                        <select class="form-control submitable" name="category_id" id="category_id">
                                             <option value="">All</option>
                                             @foreach ($category as $row)
                                                 <option value="{{ $row->id }}">{{ $row->category_name }}</option>
@@ -45,7 +45,7 @@
 
                                     <div class="form-group col-3">
                                         <label for="brand_id">Brand</label>
-                                        <select name="brand_id" id="brand_id" class="form-control">
+                                        <select name="brand_id" id="brand_id" class="form-control submitable">
                                             <option value="">All</option>
                                             @foreach ($brand as $row)
                                                 <option value="{{ $row->id }}">{{ $row->brand_name }}</option>
@@ -55,7 +55,8 @@
 
                                     <div class="form-group col-3">
                                         <label for="warehouse_id">Warehouse</label>
-                                        <select name="warehouse_id" id="warehouse_id" class="form-control" submittable>
+                                        <select name="warehouse_id" id="warehouse_id"
+                                            class="form-control submitable submitable">
                                             <option value="">All</option>
                                             @foreach ($warehouse as $row)
                                                 <option value="{{ $row->id }}">{{ $row->warehouse_name }}</option>
@@ -64,9 +65,9 @@
                                     </div>
 
                                     <div class="form-group col-3">
-                                        <label for="status_id">Status</label>
-                                        <select name="status_id" id="status_id" class="form-control">
-                                            <option value="">All</option>
+                                        <label for="status">Status</label>
+                                        <select name="status" id="status" class="form-control submitable">
+                                            <option>All</option>
                                             <option value="1">Active</option>
                                             <option value="0">Deactive</option>
                                         </select>
@@ -110,12 +111,21 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script type="text/javascript">
-            // Pickup Point table index
-            $(function pickuppoint() {
+            // Product table index
+            $(function product() {
                 table = $('.ytable').DataTable({
-                    processing: true,
-                    serverSide: true,
-                    ajax: "{{ route('product.index') }}",
+                    "processing": true,
+                    "serverSide": true,
+                    "searching": true,
+                    "ajax": {
+                        "url": "{{ route('product.index') }}",
+                        "data": function(e) {
+                            e.category_id = $("#category_id").val();
+                            e.brand_id = $("#brand_id").val();
+                            e.status = $("#status").val();
+                            e.warehouse_id = $("#warehouse_id").val();
+                        }
+                    },
                     columns: [{
                             data: 'DT_RowIndex',
                             name: 'DT_RowIndex'
@@ -301,6 +311,11 @@
                         }
                     });
                 });
+            });
+
+            //submitable class call for every change
+            $(document).on('change', '.submitable', function() {
+                $('.ytable').DataTable().ajax.reload();
             });
         </script>
     @endsection
