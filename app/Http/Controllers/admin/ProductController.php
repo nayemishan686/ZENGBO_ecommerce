@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Image;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller {
     /**
@@ -68,7 +69,7 @@ class ProductController extends Controller {
                 })
                 ->addColumn('action', function ($row) {
                     $action_btn = '<a href="#" class="btn btn-primary edit"><i class="fas fa-edit"></i></a> 
-                    <a href="' . route('pickuppoint.delete', [$row->id]) . '" class="btn btn-danger" id="delete"><i class="fas fa-trash"></i></a> 
+                    <a href="' . route('product.delete', [$row->id]) . '" class="btn btn-danger" id="delete"><i class="fas fa-trash"></i></a> 
                     <a href="#" class="btn btn-info edit"><i
                 class="fas fa-eye"></i></a>';
                     return $action_btn;
@@ -76,8 +77,10 @@ class ProductController extends Controller {
                 ->rawColumns(['action','thumbnail','category_name','subcategory_name','brand_name','featured','today_deal','status'])
                 ->make([true]);
         }
-
-        return view('admin.product.index');
+        $category = DB::table('categories')->get();
+        $brand = DB::table('brands')->get();
+        $warehouse = DB::table('warehouses')->get();
+        return view('admin.product.index', compact('category','brand','warehouse'));
     }
 
     // Product create page
@@ -157,6 +160,15 @@ class ProductController extends Controller {
         $notification = ['messege' => 'Product Added Successfully', 'alert-type' => 'success'];
         return redirect()->back()->with($notification);
 
+    }
+
+
+
+
+    // Product Delete
+    public function destroy($id){
+        DB::table('products')->where('id', $id)->delete();
+        return response()->json("Product Deleted Successfully");
     }
 
 

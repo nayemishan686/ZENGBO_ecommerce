@@ -82,7 +82,7 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
         Route::get('/', 'ProductController@index')->name('product.index');
         Route::get('/create', 'ProductController@create')->name('product.create');
         Route::post('/store', 'ProductController@store')->name('product.store');
-        // Route::delete('/destroy/{id}', 'ProductController@destroy')->name('pickuppoint.delete');
+        Route::delete('/destroy/{id}', 'ProductController@destroy')->name('product.delete');
         // Route::get('/edit/{id}', 'ProductController@edit');
         // Route::post('/update', 'ProductController@update')->name('pickuppoint.update');
         

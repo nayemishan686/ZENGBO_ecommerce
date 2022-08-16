@@ -13,9 +13,9 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">
+                            <a href="{{ route('product.create') }}" class="btn btn-primary">
                                 Add New
-                            </button>
+                            </a>
                         </ol>
                     </div>
                     <!-- /.col -->
@@ -31,6 +31,46 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title">All Pickup Point</h3>
+                                </div>
+                                <div class="row p-2">
+                                    <div class="form-group col-3">
+                                        <label for="Category_id">Category</label>
+                                        <select name="Category_id" id="Category_id" class="form-control">
+                                            <option value="">All</option>
+                                            @foreach ($category as $row)
+                                                <option value="{{ $row->id }}">{{ $row->category_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-3">
+                                        <label for="brand_id">Brand</label>
+                                        <select name="brand_id" id="brand_id" class="form-control">
+                                            <option value="">All</option>
+                                            @foreach ($brand as $row)
+                                                <option value="{{ $row->id }}">{{ $row->brand_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-3">
+                                        <label for="warehouse_id">Warehouse</label>
+                                        <select name="warehouse_id" id="warehouse_id" class="form-control" submittable>
+                                            <option value="">All</option>
+                                            @foreach ($warehouse as $row)
+                                                <option value="{{ $row->id }}">{{ $row->warehouse_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-3">
+                                        <label for="status_id">Status</label>
+                                        <select name="status_id" id="status_id" class="form-control">
+                                            <option value="">All</option>
+                                            <option value="1">Active</option>
+                                            <option value="0">Deactive</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -54,6 +94,9 @@
 
                                         </tbody>
                                     </table>
+                                    <form action="" method="delete" id="deleted_form">
+                                        @csrf @method('DELETE')
+                                    </form>
                                 </div>
                                 <!-- /.card-body -->
                             </div>
@@ -127,7 +170,7 @@
         {{-- Active & deactive Featured,Today_deal,Status --}}
         <script type="text/javascript">
             $(document).ready(function() {
-                
+
                 // Deactive Featured
                 $('body').on('click', '.featured_deactive', function(data) {
                     let featured_id = $(this).data('id');
@@ -213,6 +256,51 @@
                 });
 
 
+            });
+        </script>
+
+        {{-- Delete with ajax --}}
+        <script type="text/javascript">
+            $(document).ready(function() {
+                // swal open
+                $(document).on("click", "#delete", function(e) {
+                    e.preventDefault();
+                    var url = $(this).attr("href");
+                    $("#deleted_form").attr('action', url);
+                    swal({
+                            title: "Are you Want to delete this product?",
+                            text: "Once Delete, This will be Permanently Delete!",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                $("#deleted_form").submit();
+                            } else {
+                                swal("Safe Data");
+                            }
+                        })
+                })
+
+
+
+                // Data passed through here
+                $('#deleted_form').submit(function(e) {
+                    e.preventDefault();
+                    var url = $(this).attr('action');
+                    var request = $(this).serialize();
+                    $.ajax({
+                        url: url,
+                        type: 'post',
+                        data: request,
+                        success: function(data) {
+                            toastr.success(data);
+                            $('#deleted_form')[0].reset();
+                            table.ajax.reload();
+                        }
+                    });
+                });
             });
         </script>
     @endsection
