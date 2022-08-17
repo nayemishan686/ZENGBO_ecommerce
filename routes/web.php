@@ -14,10 +14,17 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.index');
-});
+// Route::get('/', function () {
+//     return view('frontend.index');
+// });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Group Route
+Route::group(['namespace' => 'App\Http\Controllers\frontend'], function () {
+
+    //Admin Home
+    Route::get('/', 'IndexController@index');
+});
