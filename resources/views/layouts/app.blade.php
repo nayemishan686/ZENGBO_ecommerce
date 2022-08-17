@@ -23,13 +23,41 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/plugins/slick-1.8.0/slick.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/styles/main_styles.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/styles/responsive.css">
-
+    <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/styles/product_styles.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/styles/product_responsive.css">
 </head>
 
 <body>
-    
+
     {{-- All Page Content --}}
-    @yield('content')
+    <div class="super_container">
+
+        <!-- Header -->
+
+        <header class="header">
+
+            <!-- Top Bar -->
+            @include('layouts.frontpartial.topbar');
+
+            <!-- Header Main -->
+            @include('layouts.frontpartial.mainheader');
+
+            <!-- Main Navigation -->
+            @include('layouts.frontpartial.navbar');
+
+            <!-- Menu -->
+            @include('layouts.frontpartial.mobile_menu');
+
+
+
+        </header>
+
+        <!-- Banner -->
+        @yield('content')
+        <!-- Footer -->
+        @include('layouts.frontpartial.footer');
+    </div>
 
     <script src="{{ asset('frontend') }}/js/jquery-3.3.1.min.js"></script>
     <script src="{{ asset('frontend') }}/styles/bootstrap4/popper.js"></script>
@@ -43,6 +71,7 @@
     <script src="{{ asset('frontend') }}/plugins/slick-1.8.0/slick.js"></script>
     <script src="{{ asset('frontend') }}/plugins/easing/easing.js"></script>
     <script src="{{ asset('frontend') }}/js/custom.js"></script>
+    <script src="{{ asset('frontend') }}/js/product_custom.js"></script>
 </body>
 
 </html>
