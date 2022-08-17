@@ -181,6 +181,18 @@ class ProductController extends Controller {
 
     // Product Delete
     public function destroy($id) {
+        $product = DB::table('products')->where('id', $id)->first();
+        if (File::exists('files/products/' . $product->thumbnail)) {
+            FIle::delete('files/products/' . $product->thumbnail);
+        }
+        $images = json_decode($product->images, true);
+        if (isset($images)) {
+            foreach ($images as $key => $image) {
+                if (File::exists('files/products/' . $image)) {
+                    FIle::delete('files/products/' . $image);
+                }
+            }
+        }
         DB::table('products')->where('id', $id)->delete();
         return response()->json("Product Deleted Successfully");
     }
