@@ -85,7 +85,7 @@ class ProductController extends Controller {
                     }
                 })
                 ->addColumn('action', function ($row) {
-                    $action_btn = '<a href="#" class="btn btn-primary edit"><i class="fas fa-edit"></i></a>
+                    $action_btn = '<a href="' . route('product.edit', [$row->id]) . '" class="btn btn-primary"><i class="fas fa-edit"></i></a>
                     <a href="' . route('product.delete', [$row->id]) . '" class="btn btn-danger" id="delete"><i class="fas fa-trash"></i></a>
                     <a href="#" class="btn btn-info edit"><i
                 class="fas fa-eye"></i></a>';
@@ -177,6 +177,18 @@ class ProductController extends Controller {
         $notification = ['messege' => 'Product Added Successfully', 'alert-type' => 'success'];
         return redirect()->back()->with($notification);
 
+    }
+
+    // Product Edit
+    public function edit($id) {
+        $product       = DB::table('products')->where('id', $id)->first();
+        $category      = DB::table('categories')->get();
+        $subcategory = DB::table('sub_categories')->where('category_id', $product->category_id)->get();
+        $childcategory = DB::table('childcategories')->where('subcategory_id', $product->subcategory_id)->get();
+        $brand         = DB::table('brands')->get();
+        $warehouse     = DB::table('warehouses')->get();
+        $pickuppoint   = DB::table('pickuppoints')->get();
+        return view('admin.product.edit', compact('product', 'category', 'subcategory', 'childcategory', 'brand', 'warehouse', 'pickuppoint'));
     }
 
     // Product Delete

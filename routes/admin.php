@@ -83,7 +83,7 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
         Route::get('/create', 'ProductController@create')->name('product.create');
         Route::post('/store', 'ProductController@store')->name('product.store');
         Route::delete('/destroy/{id}', 'ProductController@destroy')->name('product.delete');
-        // Route::get('/edit/{id}', 'ProductController@edit');
+        Route::get('/edit/{id}', 'ProductController@edit')->name('product.edit');
         // Route::post('/update', 'ProductController@update')->name('pickuppoint.update');
         
         // Active & Deactive Featured,Status,Today deal
