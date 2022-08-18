@@ -27,4 +27,6 @@ Route::group(['namespace' => 'App\Http\Controllers\frontend'], function () {
 
     //Admin Home
     Route::get('/', 'IndexController@index');
+    //Product Details
+    Route::get('/product-details/{slug}', 'IndexController@productDetails')->name('product.details');
 });

@@ -28,5 +28,9 @@ class AppServiceProvider extends ServiceProvider
         $setting = DB::table('settings')->first();
         view()->share('setting',$setting);
 
+        //category pass whole application
+        $category = DB::table('categories')->get();
+        view()->share('category',$category);
+
     }
 }

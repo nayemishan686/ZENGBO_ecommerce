@@ -17,7 +17,7 @@
                             <div class="banner_price"><span>{{$setting->currency}}{{$bannerProduct->selling_price}}</span>{{$setting->currency}}{{$bannerProduct->discount_price}}</div>
                             @endif
                             <div class="banner_product_name">{{$bannerProduct->brand->brand_name}}</div>
-                            <div class="button banner_button"><a href="#">Shop Now</a></div>
+                            <div class="button banner_button"><a href="{{route('product.details',$bannerProduct->slug)}}">Shop Now</a></div>
                         </div>
                     </div>
                 </div>
