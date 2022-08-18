@@ -5,7 +5,7 @@
             <!-- Logo -->
             <div class="col-lg-2 col-sm-3 col-3 order-1">
                 <div class="logo_container">
-                    <div class="logo"><a href="#">OneTech</a></div>
+                    <div class="logo"><a href="#">{{ $setting->website_name }}</a></div>
                 </div>
             </div>
 
@@ -21,14 +21,16 @@
                                     <div class="custom_dropdown_list">
                                         <span class="custom_dropdown_placeholder clc">All Categories</span>
                                         <i class="fas fa-chevron-down"></i>
-                                        @foreach ($category as $cat)
+
                                         <ul class="custom_list clc">
-                                            <li><a class="clc" href="#">{{$cat->category_name}}</a></li>
-                                        @endforeach
+                                            @foreach ($category as $cat)
+                                                <li><a class="clc" href="#">{{ $cat->category_name }}</a></li>
+                                            @endforeach
+                                        </ul>
                                     </div>
                                 </div>
-                                <button type="submit" class="header_search_button trans_300"
-                                    value="Submit"><img src="images/search.png" alt=""></button>
+                                <button type="submit" class="header_search_button trans_300" value="Submit"><img
+                                        src="{{ asset('frontend') }}/images/search.png" alt=""></button>
                             </form>
                         </div>
                     </div>

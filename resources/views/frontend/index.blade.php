@@ -12,9 +12,9 @@
                         <div class="banner_content">
                             <h1 class="banner_text">{{$bannerProduct->name}}</h1>
                             @if ($bannerProduct->discount_price == null)
-                            <div class="banner_price">${{$bannerProduct->selling_price}}</div>
+                            <div class="banner_price">{{$setting->currency}}{{$bannerProduct->selling_price}}</div>
                                @else 
-                            <div class="banner_price"><span>${{$bannerProduct->selling_price}}</span>${{$bannerProduct->discount_price}}</div>
+                            <div class="banner_price"><span>{{$setting->currency}}{{$bannerProduct->selling_price}}</span>{{$setting->currency}}{{$bannerProduct->discount_price}}</div>
                             @endif
                             <div class="banner_product_name">{{$bannerProduct->brand->brand_name}}</div>
                             <div class="button banner_button"><a href="#">Shop Now</a></div>
