@@ -31,10 +31,11 @@ return new class extends Migration
             $table->string('selling_price')->nullable();
             $table->string('discount_price')->nullable();
             $table->string('stock_quantity')->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('thumbnail')->nullable();
             $table->string('images')->nullable();
             $table->string('video')->nullable();
+            $table->integer('view')->nullable();
             $table->integer('featured')->nullable();
             $table->integer('today_deal')->nullable();
             $table->integer('product_slider')->nullable();

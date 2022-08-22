@@ -134,7 +134,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group col-lg-6">
-                                            <label for="exampleInputEmail1">Unit <span class="text-danger">*</span> </label>
+                                            <label for="exampleInputEmail1">Unit </label>
                                             <input type="number" class=form-control name="unit"
                                                 value="{{ old('unit') }}" placeholder="Enter Product Unit">
                                         </div>

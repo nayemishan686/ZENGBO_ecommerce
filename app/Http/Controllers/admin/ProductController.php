@@ -121,7 +121,6 @@ class ProductController extends Controller {
             'selling_price'  => 'required',
             'warehouse_id'   => 'required',
             'color'          => 'required',
-            'size'           => 'required',
             'description'    => 'required',
             'thumbnail'      => 'required',
         ]);

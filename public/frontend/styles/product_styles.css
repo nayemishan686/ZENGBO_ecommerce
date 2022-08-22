@@ -629,7 +629,7 @@ section {
 .header_search_form_container {
     width: 100%;
     height: 50px;
-    border: solid 1px #e5e5e5;
+    border: solid 1px #979696;
     border-radius: 5px;
 }
 
@@ -647,8 +647,9 @@ section {
     border: none !important;
     outline: none !important;
     padding-left: 26px;
-    color: #575757;
+    color: rgb(0, 0, 0);
     float: left;
+    border: 1px solid #000;
 }
 
 .header_search_input::-webkit-input-placeholder {
@@ -711,7 +712,7 @@ section {
     left: 0;
     width: 1px;
     height: 28px;
-    background: #e5e5e5;
+    background: #979696;
     content: '';
 }
 
@@ -1337,7 +1338,8 @@ select option {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 165px;
+    height: 120px;
+    width: 80px;
     border: solid 1px #e8e8e8;
     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 15px;
