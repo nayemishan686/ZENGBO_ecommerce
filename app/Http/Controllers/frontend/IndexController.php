@@ -5,6 +5,7 @@ namespace App\Http\Controllers\frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Reviews;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,10 +25,11 @@ class IndexController extends Controller {
     }
 
     // Product Details
-    public function productDetails($slug) {
-        
+    public function productDetails($slug) {     
         $product = Product::where('slug', $slug)->first();
+        $review = Reviews::where('product_id',$product->id)->get();
         $related_product = DB::table('products')->where('subcategory_id', $product->subcategory_id)->take(8)->get();
-        return view('frontend.product.productDetails',compact('product','related_product'));
+        return view('frontend.product.productDetails',compact('product','related_product','review'));
     }
+
 }

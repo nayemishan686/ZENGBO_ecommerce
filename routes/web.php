@@ -31,4 +31,6 @@ Route::group(['namespace' => 'App\Http\Controllers\frontend'], function () {
     Route::get('/product-details/{slug}', 'IndexController@productDetails')->name('product.details');
     //Customer Logout
     Route::get('/logout', 'IndexController@customerLogout')->name('customer.logout');
+    //Review
+    Route::post('/review/store', 'ReviewController@store')->name('review.store');
 });
