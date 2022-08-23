@@ -25,6 +25,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // Group Route
 Route::group(['namespace' => 'App\Http\Controllers\frontend'], function () {
 
+    // Register
+    Route::get('/register','IndexController@register')->name('register');
+    
+    // Register
+    // Route::get('/login',function(){
+    //     return "Hi";
+    // });
+
     //Admin Home
     Route::get('/', 'IndexController@index');
     //Product Details

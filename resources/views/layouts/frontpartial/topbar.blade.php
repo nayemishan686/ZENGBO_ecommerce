@@ -108,7 +108,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="">Register</a>
+                                <a href="{{route('register')}}">Register</a>
                             </li>
                         </ul>
                     </div>

@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Auth;
 
 class IndexController extends Controller {
 
+    // Customer Register
+    public function register(){
+        return view('frontend.form.register');
+    }
+
     // Customer Logout
     public function customerLogout(){
             Auth::logout();
