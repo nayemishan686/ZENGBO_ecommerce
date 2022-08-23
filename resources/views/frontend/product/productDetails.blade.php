@@ -84,7 +84,7 @@
                         <div class="product_category"><b> Unit: {{ $product->unit }} </b></div>
                         {{-- review star --}}
                         <div>
-                            @if ($sumrating != NULL)
+                            @if ($sumrating != null)
                                 @if (intval($sumrating / $countrating) == 5)
                                     <div>
                                         <span class="fa fa-star checked"></span>
@@ -205,12 +205,19 @@
                                             @if ($product->stock_quantity < 1)
                                                 <button class="btn btn-outline-danger" disabled="">Stock Out</button>
                                             @else
-                                                <button class="btn btn-outline-info" type="submit"> <span
+                                                <button class="btn btn-outline-info" type="submit" style="cursor: pointer"> <span
                                                         class="loading d-none">....</span> Add to cart</button>
                                             @endif
 
-                                            <a href="" class="btn btn-outline-primary" type="button">Add to
-                                                wishlist</a>
+                                            @if (Auth::id())
+                                                <a href="{{ route('add.wishlist', $product->id) }}"
+                                                    class="btn btn-outline-primary" type="button" style="cursor: pointer">Add to
+                                                    wishlist</a>
+                                            @else
+                                                <button class="btn btn-outline-primary alert_wishlist"
+                                                    type="button" style="cursor: pointer">Add to
+                                                    wishlist</button>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -270,7 +277,7 @@
                             <div class="row">
                                 <div class="col-lg-3">
                                     Average Review of {{ $product->name }}:<br>
-                                    @if ($sumrating != NULL)
+                                    @if ($sumrating != null)
                                         @if (intval($sumrating / $countrating) == 5)
                                             <div>
                                                 <span class="fa fa-star checked"></span>
@@ -289,7 +296,8 @@
                                                 <span class="fa fa-star checked"></span>
                                                 <span class="fa fa-star checked"></span>
                                                 <span class="fa fa-star "></span>
-                                                <span class="ml-2"> {{ substr($sumrating / $countrating, 0, 4) }} </span>
+                                                <span class="ml-2"> {{ substr($sumrating / $countrating, 0, 4) }}
+                                                </span>
                                             </div>
                                         @elseif(intval($sumrating / $countrating) >= 3 && intval($sumrating / $countrating) < 4)
                                             <div>
@@ -298,7 +306,8 @@
                                                 <span class="fa fa-star checked"></span>
                                                 <span class="fa fa-star "></span>
                                                 <span class="fa fa-star "></span>
-                                                <span class="ml-2"> {{ substr($sumrating / $countrating, 0, 4) }} </span>
+                                                <span class="ml-2"> {{ substr($sumrating / $countrating, 0, 4) }}
+                                                </span>
                                             </div>
                                         @elseif(intval($sumrating / $countrating) >= 2 && intval($sumrating / $countrating) < 3)
                                             <div>
@@ -307,7 +316,8 @@
                                                 <span class="fa fa-star "></span>
                                                 <span class="fa fa-star "></span>
                                                 <span class="fa fa-star "></span>
-                                                <span class="ml-2"> {{ substr($sumrating / $countrating, 0, 4) }} </span>
+                                                <span class="ml-2"> {{ substr($sumrating / $countrating, 0, 4) }}
+                                                </span>
                                             </div>
                                         @elseif(intval($sumrating / $countrating) >= 1 && intval($sumrating / $countrating) < 2)
                                             <div>
@@ -316,7 +326,8 @@
                                                 <span class="fa fa-star "></span>
                                                 <span class="fa fa-star "></span>
                                                 <span class="fa fa-star "></span>
-                                                <span class="ml-2"> {{ substr($sumrating / $countrating, 0, 4) }} </span>
+                                                <span class="ml-2"> {{ substr($sumrating / $countrating, 0, 4) }}
+                                                </span>
                                             </div>
                                         @endif
                                     @endif
@@ -525,23 +536,27 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    {{-- <script type="text/javascript">
-	 //store coupon ajax call
-  $('#add_to_cart').submit(function(e){
-    e.preventDefault();
-    var url = $(this).attr('action');
-    var request =$(this).serialize();
-    $.ajax({
-      url:url,
-      type:'post',
-      async:false,
-      data:request,
-      success:function(data){
-        toastr.success(data);
-        $('#add_to_cart')[0].reset();
-        cart();
-      }
-    });
-  });
-</script> --}}
+    <script type="text/javascript">
+        $('body').on('click', '.alert_wishlist', function(data) {
+            toastr.error('Please login first to add product in wishlist');
+        }) 
+
+        // //store coupon ajax call
+        // $('#add_to_cart').submit(function(e) {
+        //     e.preventDefault();
+        //     var url = $(this).attr('action');
+        //     var request = $(this).serialize();
+        //     $.ajax({
+        //         url: url,
+        //         type: 'post',
+        //         async: false,
+        //         data: request,
+        //         success: function(data) {
+        //             toastr.success(data);
+        //             $('#add_to_cart')[0].reset();
+        //             cart();
+        //         }
+        //     });
+        // });
+    </script>
 @endsection

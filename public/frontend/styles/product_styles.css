@@ -2196,3 +2196,59 @@ select option {
 .logos_list li:last-child {
     margin-right: 0px;
 }
+
+
+/* Wishlist */
+
+.header-action-wishlist {
+    margin-right: 18px;
+    position: relative;
+    top: 1px;
+}
+
+.header-action-wishlist {
+    line-height: 1;
+}
+
+.header-action-wishlist .btn-wishlist {
+    background: transparent;
+    border: none;
+    color: #333;
+    display: inline-block;
+    font-size: 24px;
+    line-height: 1;
+    margin: 0 0 0 7px;
+    margin-top: 0px;
+    padding: 0;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+}
+
+.header-action-wishlist .btn-wishlist .cart-count {
+    bottom: -8px;
+    left: 13px;
+}
+
+.header-action-wishlist .btn-wishlist .cart-count {
+    background-color: #0e8ce4;
+    border-radius: 50%;
+    bottom: -8px;
+    color: #fff;
+    display: inline-block;
+    font-size: 16px;
+    height: 23px;
+    left: 20px;
+    line-height: 26px;
+    position: absolute;
+    text-align: center;
+    width: 23px;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+}

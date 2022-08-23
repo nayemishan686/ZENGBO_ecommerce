@@ -41,4 +41,5 @@ Route::group(['namespace' => 'App\Http\Controllers\frontend'], function () {
     Route::get('/logout', 'IndexController@customerLogout')->name('customer.logout');
     //Review
     Route::post('/review/store', 'ReviewController@store')->name('review.store');
+    Route::get('/wishlist/add/{id}', 'ReviewController@wishlistAdd')->name('add.wishlist');
 });

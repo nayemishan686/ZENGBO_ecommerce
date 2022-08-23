@@ -1,3 +1,6 @@
+@php
+    $wishlistCount = DB::table('wishlists')->where('user_id',Auth::id())->count();
+@endphp
 <div class="header_main">
     <div class="container">
         <div class="row">
@@ -41,10 +44,11 @@
             <div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
                 <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
                     <div class="wishlist d-flex flex-row align-items-center justify-content-end">
-                        <div class="wishlist_icon"><img src="images/heart.png" alt=""></div>
-                        <div class="wishlist_content">
-                            <div class="wishlist_text"><a href="#">Wishlist</a></div>
-                            <div class="wishlist_count">115</div>
+                        <div class="header-action-wishlist">
+                            <a class="btn-wishlist" href="#">
+                                <span class="cart-count">{{$wishlistCount}}</span>
+                                <i class="far fa-heart"></i>
+                            </a>
                         </div>
                     </div>
 
