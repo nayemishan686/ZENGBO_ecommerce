@@ -25,14 +25,16 @@ class IndexController extends Controller {
     
     // Index method
     public function index() {
-        $featuredProduct = Product::where('featured',1)->get();
-        $bannerProduct = Product::where('product_slider', 1)->first();
-        return view('frontend.index', compact('bannerProduct','featuredProduct'));
+        $featuredProduct = Product::where('status',1)->where('featured',1)->get();
+        $bannerProduct = Product::where('status',1)->where('product_slider', 1)->first();
+        $MostPopularProduct = Product::where('status',1)->orderBy('view','DESC')->limit(20)->get();
+        return view('frontend.index', compact('bannerProduct','featuredProduct','MostPopularProduct'));
     }
 
     // Product Details
     public function productDetails($slug) {     
         $product = Product::where('slug', $slug)->first();
+        Product::where('slug',$slug)->increment('view');
         $review = Reviews::where('product_id',$product->id)->get();
         $related_product = DB::table('products')->where('subcategory_id', $product->subcategory_id)->take(8)->get();
         return view('frontend.product.productDetails',compact('product','related_product','review'));
