@@ -25,8 +25,9 @@ class IndexController extends Controller {
     
     // Index method
     public function index() {
+        $featuredProduct = Product::where('featured',1)->get();
         $bannerProduct = Product::where('product_slider', 1)->first();
-        return view('frontend.index', compact('bannerProduct'));
+        return view('frontend.index', compact('bannerProduct','featuredProduct'));
     }
 
     // Product Details

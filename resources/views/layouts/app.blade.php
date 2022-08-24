@@ -91,6 +91,12 @@
             }
         @endif
     </script>
+    {{-- Wishlist error message --}}
+    <script type="text/javascript">
+        $('body').on('click', '.alert_wishlist', function(data) {
+            toastr.error('Please login first to add product in wishlist');
+        }) 
+    </script>
     <!-- sweetalert msg end -->
 </body>
 

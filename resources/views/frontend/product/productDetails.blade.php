@@ -534,29 +534,4 @@
             </div>
         </div>
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript">
-        $('body').on('click', '.alert_wishlist', function(data) {
-            toastr.error('Please login first to add product in wishlist');
-        }) 
-
-        // //store coupon ajax call
-        // $('#add_to_cart').submit(function(e) {
-        //     e.preventDefault();
-        //     var url = $(this).attr('action');
-        //     var request = $(this).serialize();
-        //     $.ajax({
-        //         url: url,
-        //         type: 'post',
-        //         async: false,
-        //         data: request,
-        //         success: function(data) {
-        //             toastr.success(data);
-        //             $('#add_to_cart')[0].reset();
-        //             cart();
-        //         }
-        //     });
-        // });
-    </script>
 @endsection
