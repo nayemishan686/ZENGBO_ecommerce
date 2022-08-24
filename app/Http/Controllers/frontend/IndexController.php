@@ -28,7 +28,8 @@ class IndexController extends Controller {
         $featuredProduct = Product::where('status',1)->where('featured',1)->get();
         $bannerProduct = Product::where('status',1)->where('product_slider', 1)->first();
         $MostPopularProduct = Product::where('status',1)->orderBy('view','DESC')->limit(20)->get();
-        return view('frontend.index', compact('bannerProduct','featuredProduct','MostPopularProduct'));
+        $TrendyProduct = Product::where('status',1)->where('trendy',1)->orderBy('view','DESC')->limit(12)->get();
+        return view('frontend.index', compact('bannerProduct','featuredProduct','MostPopularProduct','TrendyProduct'));
     }
 
     // Product Details
@@ -38,6 +39,13 @@ class IndexController extends Controller {
         $review = Reviews::where('product_id',$product->id)->get();
         $related_product = DB::table('products')->where('subcategory_id', $product->subcategory_id)->take(8)->get();
         return view('frontend.product.productDetails',compact('product','related_product','review'));
+    }
+
+    // Product Quick View
+    public function ProductQuickView($id)
+    {
+        $product=Product::where('id',$id)->first();
+        return view('frontend.product.quick_view',compact('product'));
     }
 
 }

@@ -1250,12 +1250,15 @@ select option {
     letter-spacing: 0.038em;
 }
 
-.banner_price {}
-
 .banner_price {
     font-size: 30px;
     color: #df3b3b;
     margin-top: 87px;
+}
+
+.trends_item .banner_price {
+    margin-top: 0px;
+    font-size: 14px;
 }
 
 .banner_price span {
