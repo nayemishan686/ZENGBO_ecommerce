@@ -150,7 +150,7 @@
               </li>
 
               <li class="nav-item">
-                <a href="{{route('subcategory.index')}}" class="nav-link">
+                <a href="{{route('campaign.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Campaign</p>
                 </a>
