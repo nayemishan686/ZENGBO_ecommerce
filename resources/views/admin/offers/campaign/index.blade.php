@@ -1,6 +1,8 @@
 @extends('layouts.admin')
 
 @section('admin_content')
+    <!-- Dropify CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.css">
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header">
@@ -62,51 +64,63 @@
             </section>
         </div>
 
-        <!-- Child Category Add Modal -->
-        {{-- <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- Campaign Add Modal -->
+        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add New Coupon</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Add New Campaign</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="{{ route('coupon.store') }}" method="POST" id="add_form">
+                    <form action="{{ route('campaign.store') }}" method="POST" enctype="multipart/form-data"
+                        id="add_form">
                         @csrf
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="coupon_code">Coupon Code</label>
-                                <input type="text" class="form-control" id="coupon_code" name="coupon_code"
-                                    placeholder="Enter Coupon Code" required>
+                                <label for="title-name">Campaign Title <span class="text-danger">*</span> </label>
+                                <input type="text" class="form-control" name="title" required
+                                    placeholder="Enter Campaign Title">
                             </div>
-
-                            <div class="form-group">
-                                <label for="coupon_type">Coupon Type </label>
-                                <select class="form-control" name="coupon_type" required>
-                                    <option value="1">Fixed</option>
-                                    <option value="2">Percentage</option>
-                                </select>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="start_date">Start Date <span class="text-danger">*</span></label>
+                                        <input type="date" class="form-control" name="start_date" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="end_date">End Date <span class="text-danger">*</span></label>
+                                        <input type="date" class="form-control" name="end_date" required>
+                                    </div>
+                                </div>
                             </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="status">Status<span class="text-danger">*</span></label>
+                                        <select class="form-control" name="status">
+                                            <option value="1">Active</option>
+                                            <option value="0">Inactive</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="discount">Discount (%) <span class="text-danger">*</span></label>
+                                        <input type="number" class="form-control" name="discount" required
+                                            placeholder="Enter only dicount value">
 
-                            <div class="form-group">
-                                <label for="coupon_amount">Coupon Amount</label>
-                                <input type="text" class="form-control" id="coupon_amount" name="coupon_amount"
-                                    placeholder="Enter Coupon Amount" required>
+                                    </div>
+                                </div>
                             </div>
-
                             <div class="form-group">
-                                <label for="coupon_date">Coupon Date</label>
-                                <input type="date" class="form-control" id="coupon_date" name="coupon_date"
-                                     required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="coupon_status">Coupon Status </label>
-                                <select class="form-control" name="coupon_status" required>
-                                    <option value="active">Active</option>
-                                    <option value="deactive">Deactive</option>
-                                </select>
+                                <label for="brand-name">Brand Logo <span class="text-danger">*</span></label>
+                                <input type="file" class="dropify" data-height="140" id="input-file-now" name="image"
+                                    required="">
+                                <small id="emailHelp" class="form-text text-muted">This is your campaign banner </small>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -117,15 +131,15 @@
                     </form>
                 </div>
             </div>
-        </div> --}}
+        </div>
 
 
-        <!-- SubCategory Edit Modal -->
-        {{-- <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- Campaign Edit Modal -->
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit Coupon</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Campaign</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -135,13 +149,15 @@
                     </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
 
 
 
 
         <!-- Category Index AJAX -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <!-- Dropify JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
         <script type="text/javascript">
             // Coupon table index
             $(function campaign() {
@@ -150,10 +166,6 @@
                     serverSide: true,
                     ajax: "{{ route('campaign.index') }}",
                     columns: [{
-                            data: 'DT_RowIndex',
-                            name: 'DT_RowIndex'
-                        },
-                        {
                             data: 'title',
                             name: 'title'
                         },
@@ -187,82 +199,23 @@
                             orderable: true
                         },
                     ]
-                })
-            })
-
-            //Coupon add with ajax
-            $('#add_form').submit(function(e) {
-                e.preventDefault();
-                var url = $(this).attr('action');
-                var request = $(this).serialize();
-                $.ajax({
-                    url: url,
-                    type: 'post',
-                    data: request,
-                    success: function(data) {
-                        toastr.success(data);
-                        $("#addModal").modal('hide');
-                        $('#add_form')[0].reset();
-                        table.ajax.reload();
-                    }
                 });
             });
 
-            // Edit Coupon
-            $('body').on('click', '.edit', function(data) {
-                let coupon_id = $(this).data('id');
-                $.get("coupon/edit/" + coupon_id, function(data) {
+            $('body').on('click', '.edit', function() {
+                let id = $(this).data('id');
+                $.get("/campaign/edit/" + id, function(data) {
                     $("#modal_body").html(data);
                 });
             });
 
-            //Button effect 
-            $('#add_form').on('submit', function() {
-                $('.loader').removeClass('d-none')
-                $('.submit_btn').addClass('d-none')
-            })
-        </script>
-
-        {{-- Delete with ajax --}}
-        <script type="text/javascript">
-            $(document).ready(function() {
-                // swal open
-                $(document).on("click", "#delete", function(e) {
-                    e.preventDefault();
-                    var url = $(this).attr("href");
-                    $("#deleted_form").attr('action', url);
-                    swal({
-                            title: "Are you Want to delete?",
-                            text: "Once Delete, This will be Permanently Delete!",
-                            icon: "warning",
-                            buttons: true,
-                            dangerMode: true,
-                        })
-                        .then((willDelete) => {
-                            if (willDelete) {
-                                $("#deleted_form").submit();
-                            } else {
-                                swal("Safe Data!");
-                            }
-                        });
-                });
-
-                // Data passed through here
-                $('#deleted_form').submit(function(e) {
-                    e.preventDefault();
-                    var url = $(this).attr('action');
-                    var request = $(this).serialize();
-                    $.ajax({
-                        url: url,
-                        type: 'post',
-                        data: request,
-                        success: function(data) {
-                            toastr.success(data);
-                            $('#deleted_form')[0].reset();
-                            table.ajax.reload();
-                        }
-                    });
-                });
+            $('.dropify').dropify({
+                messages: {
+                    'default': 'Drag and drop a file here or click',
+                    'replace': 'Drag and drop or click to replace',
+                    'remove': 'Remove',
+                    'error': 'Ooops, something wrong happended.'
+                }
             });
         </script>
     @endsection

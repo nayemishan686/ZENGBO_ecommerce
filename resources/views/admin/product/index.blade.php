@@ -30,7 +30,7 @@
                             <!-- /.card -->
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">All Pickup Point</h3>
+                                    <h3 class="card-title">All Product</h3>
                                 </div>
                                 <div class="row p-2">
                                     <div class="form-group col-3">

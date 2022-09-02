@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{ asset('admin') }}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('admin') }}/plugins/summernote/summernote-bs4.min.css">
+    
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('admin') }}/dist/css/adminlte.min.css">
 </head>
@@ -99,6 +100,7 @@
     <script src="{{ asset('admin') }}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     <!-- Summernote -->
     <script src="{{ asset('admin') }}/plugins/summernote/summernote-bs4.min.js"></script>
+    
 
 
     <!-- Data Table Script -->

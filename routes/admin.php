@@ -118,10 +118,10 @@ Route::group(['namespace' => 'App\Http\Controllers\admin', 'middleware' => 'is_a
     // Campaign CRUD
     Route::group(['prefix' => 'campaign'], function () {
         Route::get('/', 'CampaignController@index')->name('campaign.index');
-        // Route::post('/store', 'CouponController@store')->name('coupon.store');
-        // Route::delete('/destroy/{id}', 'CouponController@destroy')->name('coupon.delete');
-        // Route::get('/edit/{id}', 'CouponController@edit');
-        // Route::post('/update', 'CouponController@update')->name('coupon.update');
+        Route::post('/store', 'CampaignController@store')->name('campaign.store');
+        Route::get('/destroy/{id}', 'CampaignController@destroy')->name('campaign.delete');
+        Route::get('/edit/{id}', 'CampaignController@edit');
+        Route::post('/update', 'CampaignController@update')->name('campaign.update');
     });
 
     // Setting
