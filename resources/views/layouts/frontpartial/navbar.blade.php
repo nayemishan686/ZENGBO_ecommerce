@@ -20,7 +20,7 @@
                                     $subcategory = DB::table('sub_categories')->where('category_id', $cat->id)->get();
                                 @endphp
                                 <li class="hassubs">
-                                    <a href="#">{{ $cat->category_name }}<i class="fas fa-chevron-right"></i></a>
+                                    <a href="#"><img src="{{asset($cat->icon)}}" alt="" height="24" width="24">{{ $cat->category_name }}<i class="fas fa-chevron-right"></i></a>
                                     <ul>
                                         {{-- Show Subcategory --}}
                                         @foreach ($subcategory as $subcat)

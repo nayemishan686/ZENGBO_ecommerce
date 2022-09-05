@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('category_name')->nullable();
             $table->string('category_slug')->nullable();
+            $table->string('icon')->nullable();
+            $table->int('home_page')->default(0);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });
