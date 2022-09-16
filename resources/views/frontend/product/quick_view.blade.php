@@ -15,8 +15,8 @@ if (isset($product->size)) {
         <div class="row">
             <div class="col-lg-4">
                 <div class="">
-                    <img src="{{ asset('public/files/products/' . $product->thumbnail) }}"
-                            alt="{{ $product->name }}" height="100%" width="100%">
+                    <img src="{{ asset('public/files/products/' . $product->thumbnail) }}" alt="{{ $product->name }}"
+                        height="100%" width="100%">
                 </div>
             </div>
             <div class="col-lg-8 ">
@@ -42,10 +42,10 @@ if (isset($product->size)) {
 
                 <br>
                 <div class="order_info d-flex flex-row">
-                    <form action="" method="post" id="add_cart_form">
+                    <form action="{{route('add.to.cart.quickview')}}" method="post" id="add_cart_form">
                         @csrf
                         {{-- cart add details --}}
-                        {{-- <input type="hidden" name="id" value="{{ $product->id }}"> --}}
+                        <input type="hidden" name="id" value="{{ $product->id }}">
                         @if ($product->discount_price == null)
                             <input type="hidden" name="price" value="{{ $product->selling_price }}">
                         @else
@@ -96,10 +96,32 @@ if (isset($product->size)) {
                                 </div>
                             </div>
                         </div>
-
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<!-- AJAX -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+    //store coupon ajax call
+    $('#add_cart_form').submit(function(e){
+      e.preventDefault();
+      $('.loading').removeClass('d-none');
+      var url = $(this).attr('action');
+      var request =$(this).serialize();
+      $.ajax({
+        url:url,
+        type:'post',
+        async:false,
+        data:request,
+        success:function(data){
+          toastr.success(data);
+          $('#add_cart_form')[0].reset();
+          $('.loading').addClass('d-none');
+          cart();
+        }
+      });
+    });
+  </script>  

@@ -38,9 +38,22 @@ Route::group(['namespace' => 'App\Http\Controllers\frontend'], function () {
     //Product Details
     Route::get('/product-details/{slug}', 'IndexController@productDetails')->name('product.details');
     Route::get('/product-quick-view/{id}', 'IndexController@ProductQuickView');
+
+    // Cart CRUD
+    Route::group(['prefix' => 'cart'], function () {
+        Route::post('/addToCart/quickView', 'CartController@addToCartQV')->name('add.to.cart.quickview');
+        // Route::post('/store', 'SubCategoryController@store')->name('subcategory.store');
+        // Route::get('/destroy/{id}', 'SubCategoryController@destroy')->name('subcategory.delete');
+        // Route::get('/edit/{id}', 'SubCategoryController@edit');
+        // Route::post('/update', 'SubCategoryController@update')->name('subcategory.update');
+    });
+
+
     //Customer Logout
     Route::get('/logout', 'IndexController@customerLogout')->name('customer.logout');
+
     //Review
     Route::post('/review/store', 'ReviewController@store')->name('review.store');
     Route::get('/wishlist/add/{id}', 'ReviewController@wishlistAdd')->name('add.wishlist');
+
 });
