@@ -125,145 +125,71 @@
 
                                 <!-- Deals Slider -->
                                 <div class="owl-carousel owl-theme deals_slider">
-
-                                    <!-- Deals Item -->
-                                    <div class="owl-item deals_item">
-                                        <div class="deals_image"><img src="{{ asset('public/frontend') }}/images/deals.png"
-                                                alt=""></div>
-                                        <div class="deals_content">
-                                            <div class="deals_info_line d-flex flex-row justify-content-start">
-                                                <div class="deals_item_category"><a href="#">Headphones</a>
+                                    @foreach ($todayDealProduct as $item)
+                                        <!-- Deals Item -->
+                                        <div class="owl-item deals_item">
+                                            <div class="deals_image"><img
+                                                    src="{{ asset('public/files/products/' . $item->thumbnail) }}"
+                                                    alt=""></div>
+                                            <div class="deals_content">
+                                                <div class="deals_info_line d-flex flex-row justify-content-center">
+                                                    <div class="deals_item_category"><a
+                                                            href="#">{{ $item->category->category_name }}</a>
+                                                    </div>
+                                                    <div class="deals_item_price_a ml-auto">
+                                                        @if($item->discount_price != null)
+                                                        <del class="text-danger">{{ $setting->currency }}{{ $item->selling_price }}</del>
+                                                        @endif
+                                                    </div>
                                                 </div>
-                                                <div class="deals_item_price_a ml-auto">$300</div>
-                                            </div>
-                                            <div class="deals_info_line d-flex flex-row justify-content-start">
-                                                <div class="deals_item_name">Beoplay H7</div>
-                                                <div class="deals_item_price ml-auto">$225</div>
-                                            </div>
-                                            <div class="available">
-                                                <div class="available_line d-flex flex-row justify-content-start">
-                                                    <div class="available_title">Available: <span>6</span></div>
-                                                    <div class="sold_title ml-auto">Already sold: <span>28</span></div>
+                                                <div class="deals_info_line d-flex flex-row justify-content-start">
+                                                    <div class="deals_item_name">{{ $item->name }}</div>
+                                                    <div class="deals_item_price ml-auto">
+                                                        @if ($item->discount_price == null)
+                                                            <div class="product_price">
+                                                                {{ $setting->currency }}{{ $item->selling_price }}
+                                                            </div>
+                                                        @else
+                                                            <div class="product_price">
+                                                                 {{ $setting->currency }}{{ $item->discount_price }}
+                                                            </div>
+                                                        @endif
+                                                    </div>
                                                 </div>
-                                                <div class="available_bar"><span style="width:17%"></span></div>
-                                            </div>
-                                            <div
-                                                class="deals_timer d-flex flex-row align-items-center justify-content-start">
-                                                <div class="deals_timer_title_container">
-                                                    <div class="deals_timer_title">Hurry Up</div>
-                                                    <div class="deals_timer_subtitle">Offer ends in:</div>
+                                                <div class="available">
+                                                    <div class="available_line d-flex flex-row justify-content-start">
+                                                        <div class="available_title">Available: <span>{{$item->stock_quantity}}</span></div>
+                                                        <div class="sold_title ml-auto">Already sold: <span>28</span></div>
+                                                    </div>
+                                                    <div class="available_bar"><span style="width:17%"></span></div>
                                                 </div>
-                                                <div class="deals_timer_content ml-auto">
-                                                    <div class="deals_timer_box clearfix" data-target-time="">
-                                                        <div class="deals_timer_unit">
-                                                            <div id="deals_timer1_hr" class="deals_timer_hr"></div>
-                                                            <span>hours</span>
-                                                        </div>
-                                                        <div class="deals_timer_unit">
-                                                            <div id="deals_timer1_min" class="deals_timer_min"></div>
-                                                            <span>mins</span>
-                                                        </div>
-                                                        <div class="deals_timer_unit">
-                                                            <div id="deals_timer1_sec" class="deals_timer_sec"></div>
-                                                            <span>secs</span>
+                                                <div
+                                                    class="deals_timer d-flex flex-row align-items-center justify-content-start">
+                                                    <div class="deals_timer_title_container">
+                                                        <div class="deals_timer_title">Hurry Up</div>
+                                                        <div class="deals_timer_subtitle">Offer ends in:</div>
+                                                    </div>
+                                                    <div class="deals_timer_content ml-auto">
+                                                        <div class="deals_timer_box clearfix" data-target-time="">
+                                                            <div class="deals_timer_unit">
+                                                                <div id="deals_timer1_hr" class="deals_timer_hr"></div>
+                                                                <span>hours</span>
+                                                            </div>
+                                                            <div class="deals_timer_unit">
+                                                                <div id="deals_timer1_min" class="deals_timer_min"></div>
+                                                                <span>mins</span>
+                                                            </div>
+                                                            <div class="deals_timer_unit">
+                                                                <div id="deals_timer1_sec" class="deals_timer_sec"></div>
+                                                                <span>secs</span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endforeach
 
-                                    <!-- Deals Item -->
-                                    <div class="owl-item deals_item">
-                                        <div class="deals_image"><img src="images/deals.png" alt=""></div>
-                                        <div class="deals_content">
-                                            <div class="deals_info_line d-flex flex-row justify-content-start">
-                                                <div class="deals_item_category"><a href="#">Headphones</a>
-                                                </div>
-                                                <div class="deals_item_price_a ml-auto">$300</div>
-                                            </div>
-                                            <div class="deals_info_line d-flex flex-row justify-content-start">
-                                                <div class="deals_item_name">Beoplay H7</div>
-                                                <div class="deals_item_price ml-auto">$225</div>
-                                            </div>
-                                            <div class="available">
-                                                <div class="available_line d-flex flex-row justify-content-start">
-                                                    <div class="available_title">Available: <span>6</span></div>
-                                                    <div class="sold_title ml-auto">Already sold: <span>28</span></div>
-                                                </div>
-                                                <div class="available_bar"><span style="width:17%"></span></div>
-                                            </div>
-                                            <div
-                                                class="deals_timer d-flex flex-row align-items-center justify-content-start">
-                                                <div class="deals_timer_title_container">
-                                                    <div class="deals_timer_title">Hurry Up</div>
-                                                    <div class="deals_timer_subtitle">Offer ends in:</div>
-                                                </div>
-                                                <div class="deals_timer_content ml-auto">
-                                                    <div class="deals_timer_box clearfix" data-target-time="">
-                                                        <div class="deals_timer_unit">
-                                                            <div id="deals_timer2_hr" class="deals_timer_hr"></div>
-                                                            <span>hours</span>
-                                                        </div>
-                                                        <div class="deals_timer_unit">
-                                                            <div id="deals_timer2_min" class="deals_timer_min"></div>
-                                                            <span>mins</span>
-                                                        </div>
-                                                        <div class="deals_timer_unit">
-                                                            <div id="deals_timer2_sec" class="deals_timer_sec"></div>
-                                                            <span>secs</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Deals Item -->
-                                    <div class="owl-item deals_item">
-                                        <div class="deals_image"><img src="images/deals.png" alt=""></div>
-                                        <div class="deals_content">
-                                            <div class="deals_info_line d-flex flex-row justify-content-start">
-                                                <div class="deals_item_category"><a href="#">Headphones</a>
-                                                </div>
-                                                <div class="deals_item_price_a ml-auto">$300</div>
-                                            </div>
-                                            <div class="deals_info_line d-flex flex-row justify-content-start">
-                                                <div class="deals_item_name">Beoplay H7</div>
-                                                <div class="deals_item_price ml-auto">$225</div>
-                                            </div>
-                                            <div class="available">
-                                                <div class="available_line d-flex flex-row justify-content-start">
-                                                    <div class="available_title">Available: <span>6</span></div>
-                                                    <div class="sold_title ml-auto">Already sold: <span>28</span></div>
-                                                </div>
-                                                <div class="available_bar"><span style="width:17%"></span></div>
-                                            </div>
-                                            <div
-                                                class="deals_timer d-flex flex-row align-items-center justify-content-start">
-                                                <div class="deals_timer_title_container">
-                                                    <div class="deals_timer_title">Hurry Up</div>
-                                                    <div class="deals_timer_subtitle">Offer ends in:</div>
-                                                </div>
-                                                <div class="deals_timer_content ml-auto">
-                                                    <div class="deals_timer_box clearfix" data-target-time="">
-                                                        <div class="deals_timer_unit">
-                                                            <div id="deals_timer3_hr" class="deals_timer_hr"></div>
-                                                            <span>hours</span>
-                                                        </div>
-                                                        <div class="deals_timer_unit">
-                                                            <div id="deals_timer3_min" class="deals_timer_min"></div>
-                                                            <span>mins</span>
-                                                        </div>
-                                                        <div class="deals_timer_unit">
-                                                            <div id="deals_timer3_sec" class="deals_timer_sec"></div>
-                                                            <span>secs</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
                                 </div>
 
@@ -1601,7 +1527,8 @@
                                                         </span>
                                                     @else
                                                         <span>
-                                                            Price: <del class="text-danger">{{ $setting->currency }}{{ $item->selling_price }}</del>
+                                                            Price: <del
+                                                                class="text-danger">{{ $setting->currency }}{{ $item->selling_price }}</del>
                                                             {{ $setting->currency }}{{ $item->discount_price }}
                                                         </span>
                                                     @endif

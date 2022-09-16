@@ -34,7 +34,8 @@ class IndexController extends Controller {
         $homeCategory = Category::where('home_page',1)->orderBy('id','ASC')->get();
         $brand = Brand::all();
         $randomProduct = Product::where('status',1)->inRandomOrder()->limit(16)->get();
-        return view('frontend.index', compact('bannerProduct','featuredProduct','MostPopularProduct','TrendyProduct','category','homeCategory','brand','randomProduct'));
+        $todayDealProduct = Product::where('today_deal',1)->orderBy('id','ASC')->limit(16)->get();
+        return view('frontend.index', compact('bannerProduct','featuredProduct','MostPopularProduct','TrendyProduct','category','homeCategory','brand','randomProduct','todayDealProduct'));
     }
 
     // Product Details
