@@ -52,9 +52,9 @@ class BrandController extends Controller {
         $photo     = $request->brand_logo;
         $photoname = $slug . '.' . $photo->getClientOriginalExtension();
         // $photo->move('files/brand/',$photoname);  //without image intervention
-        Image::make($photo)->resize(240, 120)->save('files/brands/' . $photoname); //image intervention
+        Image::make($photo)->resize(240, 120)->save('public/files/brands/' . $photoname); //image intervention
 
-        $data['brand_logo'] = '/files/brands/' . $photoname; // files/brand/plus-point.jpg
+        $data['brand_logo'] = 'public/files/brands/' . $photoname; // files/brand/plus-point.jpg
         DB::table('brands')->insert($data);
         $notification = ['messege' => 'Brands Created Successfully', 'alert-type' => 'success'];
         return redirect()->back()->with($notification);
@@ -64,8 +64,8 @@ class BrandController extends Controller {
     public function destroy($id) {
         $data  = DB::table('brands')->where('id', $id)->first();
         $image = $data->brand_logo;
-        if (File::exists(public_path($image))) {
-            unlink(public_path($image));
+        if (File::exists($image)) {
+            unlink($image);
         }
         DB::table('brands')->where('id', $id)->delete();
         $notification = ['messege' => 'Brands Deleted Successfully', 'alert-type' => 'success'];
@@ -86,13 +86,13 @@ class BrandController extends Controller {
         $data['brand_slug'] = $slug;
         if ($request->brand_logo) {
             $image = $request->old_logo;
-            if (File::exists(public_path($image))) {
-                unlink(public_path($image));
+            if (File::exists($image)) {
+                unlink($image);
             }
             $photo     = $request->brand_logo;
             $photoname = $slug . '.' . $photo->getClientOriginalExtension();
-            Image::make($photo)->resize(240, 120)->save('files/brands/' . $photoname);
-            $data['brand_logo'] = '/files/brands/' . $photoname;
+            Image::make($photo)->resize(240, 120)->save('public/files/brands/' . $photoname);
+            $data['brand_logo'] = 'public/files/brands/' . $photoname;
         } else {
             $data['brand_logo'] = $request->old_logo;
         }

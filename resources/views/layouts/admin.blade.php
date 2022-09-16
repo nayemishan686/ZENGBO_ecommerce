@@ -10,20 +10,20 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="{{ asset('admin') }}/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('public/admin') }}/plugins/fontawesome-free/css/all.min.css">
     <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="{{ asset('admin') }}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="{{ asset('public/admin') }}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- toastr -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
     <!-- DataTables -->
-    <link rel="stylesheet" href="{{ asset('admin') }}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="{{ asset('admin') }}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="{{ asset('admin') }}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="{{ asset('public/admin') }}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="{{ asset('public/admin') }}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="{{ asset('public/admin') }}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- summernote -->
-    <link rel="stylesheet" href="{{ asset('admin') }}/plugins/summernote/summernote-bs4.min.css">
+    <link rel="stylesheet" href="{{ asset('public/admin') }}/plugins/summernote/summernote-bs4.min.css">
     
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('admin') }}/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="{{ asset('public/admin') }}/dist/css/adminlte.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -33,7 +33,7 @@
 
             <!-- Preloader -->
             <div class="preloader flex-column justify-content-center align-items-center">
-                <img class="animation__wobble" src="{{ asset('admin') }}/dist/img/AdminLTELogo.png" alt="AdminLTELogo"
+                <img class="animation__wobble" src="{{ asset('public/admin') }}/dist/img/AdminLTELogo.png" alt="AdminLTELogo"
                     height="60" width="60">
             </div>
 
@@ -60,46 +60,46 @@
 
     <!-- REQUIRED SCRIPTS -->
     <!-- jQuery -->
-    <script src="{{ asset('admin') }}/plugins/jquery/jquery.min.js"></script>
+    <script src="{{ asset('public/admin') }}/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap -->
-    <script src="{{ asset('admin') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('public/admin') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- overlayScrollbars -->
-    <script src="{{ asset('admin') }}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="{{ asset('public/admin') }}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="{{ asset('admin') }}/dist/js/adminlte.js"></script>
+    <script src="{{ asset('public/admin') }}/dist/js/adminlte.js"></script>
 
     <!-- PAGE PLUGINS -->
     <!-- jQuery Mapael -->
-    <script src="{{ asset('admin') }}/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-    <script src="{{ asset('admin') }}/plugins/raphael/raphael.min.js"></script>
-    <script src="{{ asset('admin') }}/plugins/jquery-mapael/jquery.mapael.min.js"></script>
-    <script src="{{ asset('admin') }}/plugins/jquery-mapael/maps/usa_states.min.js"></script>
+    <script src="{{ asset('public/admin') }}/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+    <script src="{{ asset('public/admin') }}/plugins/raphael/raphael.min.js"></script>
+    <script src="{{ asset('public/admin') }}/plugins/jquery-mapael/jquery.mapael.min.js"></script>
+    <script src="{{ asset('public/admin') }}/plugins/jquery-mapael/maps/usa_states.min.js"></script>
     <!-- ChartJS -->
-    <script src="{{ asset('admin') }}/plugins/chart.js/Chart.min.js"></script>
+    <script src="{{ asset('public/admin') }}/plugins/chart.js/Chart.min.js"></script>
 
     <!-- AdminLTE for demo purposes -->
-    <script src="{{ asset('admin') }}/dist/js/demo.js"></script>
+    <script src="{{ asset('public/admin') }}/dist/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="{{ asset('admin') }}/dist/js/pages/dashboard2.js"></script>
+    <script src="{{ asset('public/admin') }}/dist/js/pages/dashboard2.js"></script>
     <!-- sweetalert -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <!-- toastr -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <!-- DataTables  & Plugins -->
-    <script src="{{ asset('admin') }}/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="{{ asset('admin') }}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="{{ asset('admin') }}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="{{ asset('admin') }}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script src="{{ asset('admin') }}/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="{{ asset('admin') }}/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-    <script src="{{ asset('admin') }}/plugins/jszip/jszip.min.js"></script>
-    <script src="{{ asset('admin') }}/plugins/pdfmake/pdfmake.min.js"></script>
-    <script src="{{ asset('admin') }}/plugins/pdfmake/vfs_fonts.js"></script>
-    <script src="{{ asset('admin') }}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-    <script src="{{ asset('admin') }}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-    <script src="{{ asset('admin') }}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="{{ asset('public/admin') }}/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('public/admin') }}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="{{ asset('public/admin') }}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="{{ asset('public/admin') }}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="{{ asset('public/admin') }}/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="{{ asset('public/admin') }}/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="{{ asset('public/admin') }}/plugins/jszip/jszip.min.js"></script>
+    <script src="{{ asset('public/admin') }}/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="{{ asset('public/admin') }}/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="{{ asset('public/admin') }}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="{{ asset('public/admin') }}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="{{ asset('public/admin') }}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     <!-- Summernote -->
-    <script src="{{ asset('admin') }}/plugins/summernote/summernote-bs4.min.js"></script>
+    <script src="{{ asset('public/admin') }}/plugins/summernote/summernote-bs4.min.js"></script>
     
 
 

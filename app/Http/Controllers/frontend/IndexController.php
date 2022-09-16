@@ -29,7 +29,9 @@ class IndexController extends Controller {
         $bannerProduct = Product::where('status',1)->where('product_slider', 1)->first();
         $MostPopularProduct = Product::where('status',1)->orderBy('view','DESC')->limit(20)->get();
         $TrendyProduct = Product::where('status',1)->where('trendy',1)->orderBy('view','DESC')->limit(12)->get();
-        return view('frontend.index', compact('bannerProduct','featuredProduct','MostPopularProduct','TrendyProduct'));
+        $category = Category::all();
+        $homeCategory = Category::where('home_page',1)->orderBy('id','ASC')->get();
+        return view('frontend.index', compact('bannerProduct','featuredProduct','MostPopularProduct','TrendyProduct','category','homeCategory'));
     }
 
     // Product Details

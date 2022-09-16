@@ -15,7 +15,7 @@ if (isset($product->size)) {
         <div class="row">
             <div class="col-lg-4">
                 <div class="">
-                    <img src="{{ asset('files/products/' . $product->thumbnail) }}"
+                    <img src="{{ asset('public/files/products/' . $product->thumbnail) }}"
                             alt="{{ $product->name }}" height="100%" width="100%">
                 </div>
             </div>

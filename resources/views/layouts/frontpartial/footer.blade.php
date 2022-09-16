@@ -94,13 +94,13 @@
                     </div>
                     <div class="logos ml-sm-auto">
                         <ul class="logos_list">
-                            <li><a href="#"><img src="{{ asset('frontend') }}/images/logos_1.png"
+                            <li><a href="#"><img src="{{ asset('public/frontend') }}/images/logos_1.png"
                                         alt=""></a></li>
-                            <li><a href="#"><img src="{{ asset('frontend') }}/images/logos_2.png"
+                            <li><a href="#"><img src="{{ asset('public/frontend') }}/images/logos_2.png"
                                         alt=""></a></li>
-                            <li><a href="#"><img src="{{ asset('frontend') }}/images/logos_3.png"
+                            <li><a href="#"><img src="{{ asset('public/frontend') }}/images/logos_3.png"
                                         alt=""></a></li>
-                            <li><a href="#"><img src="{{ asset('frontend') }}/images/logos_4.png"
+                            <li><a href="#"><img src="{{ asset('public/frontend') }}/images/logos_4.png"
                                         alt=""></a></li>
                         </ul>
                     </div>

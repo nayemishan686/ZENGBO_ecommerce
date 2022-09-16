@@ -22,7 +22,7 @@ class ProductController extends Controller {
 
     // show all Product
     public function index(Request $request) {
-        $imageUrl = 'files/products';
+        $imageUrl = 'public/files/products';
         $product  = "";
         $query    = DB::table('products')
             ->leftJoin('categories', 'products.category_id', 'categories.id')
@@ -158,7 +158,7 @@ class ProductController extends Controller {
         //working with thumbnail
         $thumbnail     = $request->thumbnail;
         $thumbnailname = $slug . '.' . $thumbnail->getClientOriginalExtension();
-        Image::make($thumbnail)->resize(600, 600)->save('files/products/' . $thumbnailname); //image intervention
+        Image::make($thumbnail)->resize(600, 600)->save('public/files/products/' . $thumbnailname); //image intervention
         $data['thumbnail'] = $thumbnailname; // files/brand/plus-point.jpg
 
         //multiple images
@@ -166,7 +166,7 @@ class ProductController extends Controller {
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $key => $image) {
                 $imageName = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-                Image::make($image)->resize(600, 600)->save('files/products/' . $imageName);
+                Image::make($image)->resize(600, 600)->save('public/files/products/' . $imageName);
                 array_push($images, $imageName);
             }
             $data['images'] = json_encode($images);
@@ -182,7 +182,7 @@ class ProductController extends Controller {
     public function edit($id) {
         $product       = DB::table('products')->where('id', $id)->first();
         $category      = DB::table('categories')->get();
-        $subcategory = DB::table('sub_categories')->where('category_id', $product->category_id)->get();
+        $subcategory   = DB::table('sub_categories')->where('category_id', $product->category_id)->get();
         $childcategory = DB::table('childcategories')->where('subcategory_id', $product->subcategory_id)->get();
         $brand         = DB::table('brands')->get();
         $warehouse     = DB::table('warehouses')->get();
@@ -193,14 +193,14 @@ class ProductController extends Controller {
     // Product Delete
     public function destroy($id) {
         $product = DB::table('products')->where('id', $id)->first();
-        if (File::exists('files/products/' . $product->thumbnail)) {
-            FIle::delete('files/products/' . $product->thumbnail);
+        if (File::exists('public/files/products/' . $product->thumbnail)) {
+            FIle::delete('public/files/products/' . $product->thumbnail);
         }
         $images = json_decode($product->images, true);
         if (isset($images)) {
             foreach ($images as $key => $image) {
-                if (File::exists('files/products/' . $image)) {
-                    FIle::delete('files/products/' . $image);
+                if (File::exists('public/files/products/' . $image)) {
+                    FIle::delete('public/files/products/' . $image);
                 }
             }
         }

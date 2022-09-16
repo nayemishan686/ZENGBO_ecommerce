@@ -56,8 +56,8 @@
                     <ul class="image_list">
                         @if (isset($product))
                             @foreach ($images as $item)
-                                <li data-image="{{ asset('files/products/' . $item) }}"><img
-                                        src="{{ asset('files/products/' . $item) }}" alt="">
+                                <li data-image="{{ asset('public/files/products/' . $item) }}"><img
+                                        src="{{ asset('public/files/products/' . $item) }}" alt="">
                                 </li>
                             @endforeach
                         @endif
@@ -66,7 +66,7 @@
 
                 <!-- Selected Image -->
                 <div class="col-lg-4 order-lg-2 order-1">
-                    <div class="image_selected"><img src="{{ asset('files/products/' . $product->thumbnail) }}"
+                    <div class="image_selected"><img src="{{ asset('public/files/products/' . $product->thumbnail) }}"
                             alt="{{ $product->name }}"></div>
                 </div>
 

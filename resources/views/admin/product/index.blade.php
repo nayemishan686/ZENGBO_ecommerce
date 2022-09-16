@@ -81,9 +81,7 @@
                                                 <th>SL</th>
                                                 <th>Thumbnail</th>
                                                 <th>Name</th>
-                                                <th>Code</th>
                                                 <th>Category</th>
-                                                <th>Subcategory</th>
                                                 <th>Brand</th>
                                                 <th>Featured</th>
                                                 <th>Today Deal</th>
@@ -136,19 +134,15 @@
                         },
                         {
                             data: 'name',
-                            name: 'name'
-                        },
-                        {
-                            data: 'code',
-                            name: 'code'
+                            name: 'name',
+                            render: function(data, type, row) {
+                                return type === 'display' && data.length > 20 ? data.substr(0, 20) +
+                                    '…' : data;
+                            }
                         },
                         {
                             data: 'category_name',
                             name: 'category_name'
-                        },
-                        {
-                            data: 'subcategory_name',
-                            name: 'subcategory_name'
                         },
                         {
                             data: 'brand_name',

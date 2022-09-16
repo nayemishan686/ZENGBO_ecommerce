@@ -38,7 +38,7 @@ class CategoryController extends Controller {
         // Working with icon
         $icon     = $request->icon;
         $iconName = $slug . '.' . $icon->getClientOriginalExtension();
-        Image::make($icon)->resize(32, 32)->save('files/category/' . $iconName);
+        Image::make($icon)->resize(32, 32)->save('public/files/category/' . $iconName);
 
         // // Query Builder
         // $data = [];
@@ -51,7 +51,7 @@ class CategoryController extends Controller {
         Category::insert([
             'category_name' => $request->category_name,
             'category_slug' => $slug,
-            'icon'          => ('files/category/' . $iconName),
+            'icon'          => ('public/files/category/' . $iconName),
         ]);
         $notification = ['messege' => 'Category Added Successfully', 'alert-type' => 'success'];
         return redirect()->back()->with($notification);
@@ -66,8 +66,8 @@ class CategoryController extends Controller {
         // Eloquent ORM
         $data = Category::findorfail($id);
         $icon = $data->icon;
-        if (File::exists(public_path($icon))) {
-            unlink(public_path($icon));
+        if (File::exists($icon)) {
+            unlink($icon);
         }
         Category::find($id)->delete();
         $notification = ['messege' => 'Category Deleted Successfully', 'alert-type' => 'success'];
@@ -97,8 +97,8 @@ class CategoryController extends Controller {
                 }
               $photo=$request->icon;
               $photoname=$slug.'.'.$photo->getClientOriginalExtension();
-              Image::make($photo)->resize(32,32)->save('files/category/'.$photoname); 
-              $data['icon']='files/category/'.$photoname; 
+              Image::make($photo)->resize(32,32)->save('public/files/category/'.$photoname); 
+              $data['icon']='public/files/category/'.$photoname; 
               DB::table('categories')->where('id',$request->id)->update($data); 
               $notification=array('messege' => 'Category Update!', 'alert-type' => 'success');
               return redirect()->back()->with($notification);

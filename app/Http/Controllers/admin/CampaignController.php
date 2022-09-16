@@ -58,9 +58,9 @@ class CampaignController extends Controller {
         //working with image
         $photo     = $request->image;
         $photoname = $slug . '.' . $photo->getClientOriginalExtension();
-        Image::make($photo)->resize(468, 90)->save('files/campaigns/' . $photoname); //image intervention
+        Image::make($photo)->resize(468, 90)->save('public/files/campaigns/' . $photoname); //image intervention
 
-        $data['image'] = '/files/campaigns/' . $photoname; // files/brand/plus-point.jpg
+        $data['image'] = '/public/files/campaigns/' . $photoname; // files/brand/plus-point.jpg
         DB::table('campaigns')->insert($data);
         $notification = ['messege' => 'Campaigns Created Successfully', 'alert-type' => 'success'];
         return redirect()->back()->with($notification);
@@ -70,8 +70,8 @@ class CampaignController extends Controller {
     public function destroy($id) {
         $data  = DB::table('campaigns')->where('id', $id)->first();
         $image = $data->image;
-        if (File::exists(public_path($image))) {
-            unlink(public_path($image));
+        if (File::exists($image)) {
+            unlink($image);
         }
         DB::table('campaigns')->where('id', $id)->delete();
         $notification = ['messege' => 'Campaign Deleted Successfully', 'alert-type' => 'success'];
@@ -98,13 +98,13 @@ class CampaignController extends Controller {
         //working with image
         if ($request->image) {
             $image = $request->old_image;
-            if (File::exists(public_path($image))) {
-                unlink(public_path($image));
+            if (File::exists($image)) {
+                unlink($image);
             }
             $photo     = $request->image;
             $photoname = $slug . '.' . $photo->getClientOriginalExtension();
-            Image::make($photo)->resize(468, 90)->save('files/campaigns/' . $photoname); //image intervention
-            $data['image'] = '/files/campaigns/' . $photoname; // files/brand/plus-point.jpg
+            Image::make($photo)->resize(468, 90)->save('public/files/campaigns/' . $photoname); //image intervention
+            $data['image'] = '/public/files/campaigns/' . $photoname; // files/brand/plus-point.jpg
         } else {
             $data['image'] = $request->old_image;
         }
