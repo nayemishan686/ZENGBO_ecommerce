@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Reviews;
@@ -31,7 +32,9 @@ class IndexController extends Controller {
         $TrendyProduct = Product::where('status',1)->where('trendy',1)->orderBy('view','DESC')->limit(12)->get();
         $category = Category::all();
         $homeCategory = Category::where('home_page',1)->orderBy('id','ASC')->get();
-        return view('frontend.index', compact('bannerProduct','featuredProduct','MostPopularProduct','TrendyProduct','category','homeCategory'));
+        $brand = Brand::all();
+        $randomProduct = Product::where('status',1)->inRandomOrder()->limit(16)->get();
+        return view('frontend.index', compact('bannerProduct','featuredProduct','MostPopularProduct','TrendyProduct','category','homeCategory','brand','randomProduct'));
     }
 
     // Product Details
