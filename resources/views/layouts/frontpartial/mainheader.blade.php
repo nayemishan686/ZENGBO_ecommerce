@@ -1,5 +1,7 @@
 @php
-    $wishlistCount = DB::table('wishlists')->where('user_id',Auth::id())->count();
+$wishlistCount = DB::table('wishlists')
+    ->where('user_id', Auth::id())
+    ->count();
 @endphp
 <div class="header_main">
     <div class="container">
@@ -8,7 +10,7 @@
             <!-- Logo -->
             <div class="col-lg-2 col-sm-3 col-3 order-1">
                 <div class="logo_container">
-                    <div class="logo"><a href="{{url('/')}}">{{ $setting->website_name }}</a></div>
+                    <div class="logo"><a href="{{ url('/') }}">{{ $setting->website_name }}</a></div>
                 </div>
             </div>
 
@@ -46,7 +48,7 @@
                     <div class="wishlist d-flex flex-row align-items-center justify-content-end">
                         <div class="header-action-wishlist">
                             <a class="btn-wishlist" href="#">
-                                <span class="cart-count">{{$wishlistCount}}</span>
+                                <span class="cart-count">{{ $wishlistCount }}</span>
                                 <i class="far fa-heart"></i>
                             </a>
                         </div>
@@ -57,11 +59,12 @@
                         <div class="cart_container d-flex flex-row align-items-center justify-content-end">
                             <div class="cart_icon">
                                 <img src="images/cart.png" alt="">
-                                <div class="cart_count"><span class="cart_qty">{{Cart::count()}}</span></div>
+                                <div class="cart_count"><span class="cart_qty">{{ Cart::count() }}</span></div>
                             </div>
                             <div class="cart_content">
                                 <div class="cart_text"><a href="#">Cart</a></div>
-                                <div class="cart_price"><span class="cart_total">{{$setting->currency}}{{Cart::total()}}</span></div>
+                                <div class="cart_price"><span
+                                        class="cart_total">{{ $setting->currency }}{{ Cart::total() }}</span></div>
                             </div>
                         </div>
                     </div>
@@ -70,3 +73,26 @@
         </div>
     </div>
 </div>
+
+<!-- Category Index AJAX -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+    function cart() {
+        $.ajax({
+            type: 'get',
+            url: '{{ route('all.cart') }}',
+            dataType: 'json',
+            success: function(data) {
+                $('.cart_qty').empty();
+                $('.cart_total').empty();
+                $('.cart_qty').append(data.qty);
+                $('.cart_total').append(data.total);
+            }
+        })
+    }
+
+    $(document).ready(function(event){
+        cart();
+    });
+    
+</script>

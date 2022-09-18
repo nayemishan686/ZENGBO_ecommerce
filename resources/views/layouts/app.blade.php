@@ -16,7 +16,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend') }}/styles/bootstrap4/bootstrap.min.css">
     <link href="{{ asset('public/frontend') }}/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet"
         type="text/css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend') }}/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('public/frontend') }}/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('public/frontend') }}/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend') }}/plugins/OwlCarousel2-2.2.1/animate.css">
@@ -64,7 +65,7 @@
     <script src="{{ asset('public/frontend') }}/plugins/scrollmagic/ScrollMagic.min.js"></script>
     <script src="{{ asset('public/frontend') }}/plugins/greensock/animation.gsap.min.js"></script>
     <script src="{{ asset('public/frontend') }}/plugins/greensock/ScrollToPlugin.min.js"></script>
-    <script src="{{ asset('public/frontend') }}/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>  
+    <script src="{{ asset('public/frontend') }}/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
     <!-- toastr -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="{{ asset('public/frontend') }}/plugins/slick-1.8.0/slick.js"></script>
@@ -95,7 +96,7 @@
     <script type="text/javascript">
         $('body').on('click', '.alert_wishlist', function(data) {
             toastr.error('Please login first to add product in wishlist');
-        }) 
+        })
     </script>
     <!-- sweetalert msg end -->
 </body>

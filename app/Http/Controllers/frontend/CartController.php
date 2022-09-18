@@ -10,14 +10,6 @@ use App\Models\Product;
 
 class CartController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct() {
-        $this->middleware('auth');
-    }
 
     // Add to cart quickview
     public function addToCartQV(Request $request){
@@ -35,6 +27,14 @@ class CartController extends Controller
             ]
         ]);
         return response()->json('Product added successfully');
+    }
+
+    // All cart details
+    public function allCart(){
+        $data = [];
+        $data['qty'] = Cart::count();
+        $data['total'] = Cart::total();
+        return response()->json($data);
     }
 
 }

@@ -108,7 +108,6 @@ if (isset($product->size)) {
     //store coupon ajax call
     $('#add_cart_form').submit(function(e){
       e.preventDefault();
-      $('.loading').removeClass('d-none');
       var url = $(this).attr('action');
       var request =$(this).serialize();
       $.ajax({
@@ -119,8 +118,8 @@ if (isset($product->size)) {
         success:function(data){
           toastr.success(data);
           $('#add_cart_form')[0].reset();
-          $('.loading').addClass('d-none');
           cart();
+          $('#toast-container').css('display','none');;
         }
       });
     });
