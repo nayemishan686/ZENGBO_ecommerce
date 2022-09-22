@@ -105,7 +105,7 @@ if (isset($product->size)) {
 <!-- AJAX -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
-    //store coupon ajax call
+    //store Cart ajax call
     $('#add_cart_form').submit(function(e){
       e.preventDefault();
       var url = $(this).attr('action');
@@ -119,7 +119,6 @@ if (isset($product->size)) {
           toastr.success(data);
           $('#add_cart_form')[0].reset();
           cart();
-          $('#toast-container').css('display','none');;
         }
       });
     });

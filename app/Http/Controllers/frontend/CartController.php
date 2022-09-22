@@ -23,7 +23,7 @@ class CartController extends Controller
             'option' => [
                 'size' => $request->size,
                 'color' => $request->color,
-                'thumbnail' => $request->thumbnail,
+                'thumbnail' => $product->thumbnail,
             ]
         ]);
         return response()->json('Product added successfully');
@@ -35,6 +35,11 @@ class CartController extends Controller
         $data['qty'] = Cart::count();
         $data['total'] = Cart::total();
         return response()->json($data);
+    }
+
+    public function destroy()
+    {
+        Cart::destroy();
     }
 
 }

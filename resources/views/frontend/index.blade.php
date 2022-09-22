@@ -251,7 +251,8 @@
                                                             </div>
                                                         </div>
                                                         <div class="product_extras">
-                                                            <button class="product_cart_button active">Add to Cart</button>
+                                                            <button class="product_cart_button active quick_view" id="{{ $item->id }}" data-toggle="modal"
+                                                                data-target="#exampleModalCenter">Add to Cart</button>
                                                         </div>
                                                     </div>
                                                     @if (Auth::id())

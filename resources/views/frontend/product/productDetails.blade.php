@@ -11,39 +11,39 @@
 
     {{-- Extra image --}}
     @php
-    // Bulk image
-    if (isset($product->images)) {
-        $images = json_decode($product->images, true);
-    }
-    // Color
-    if (isset($product->color)) {
-        $color = explode(',', $product->color);
-    }
-    // Size
-    if (isset($product->size)) {
-        $size = explode(',', $product->size);
-    }
-
-    // Review
-    $review_5 = App\Models\Reviews::where('product_id', $product->id)
-        ->where('rating', '5')
-        ->count();
-    $review_4 = App\Models\Reviews::where('product_id', $product->id)
-        ->where('rating', '4')
-        ->count();
-    $review_3 = App\Models\Reviews::where('product_id', $product->id)
-        ->where('rating', '3')
-        ->count();
-    $review_2 = App\Models\Reviews::where('product_id', $product->id)
-        ->where('rating', '2')
-        ->count();
-    $review_1 = App\Models\Reviews::where('product_id', $product->id)
-        ->where('rating', '1')
-        ->count();
-
-    $sumrating = App\Models\Reviews::where('product_id', $product->id)->sum('rating');
-    $countrating = App\Models\Reviews::where('product_id', $product->id)->count('rating');
-
+        // Bulk image
+        if (isset($product->images)) {
+            $images = json_decode($product->images, true);
+        }
+        // Color
+        if (isset($product->color)) {
+            $color = explode(',', $product->color);
+        }
+        // Size
+        if (isset($product->size)) {
+            $size = explode(',', $product->size);
+        }
+        
+        // Review
+        $review_5 = App\Models\Reviews::where('product_id', $product->id)
+            ->where('rating', '5')
+            ->count();
+        $review_4 = App\Models\Reviews::where('product_id', $product->id)
+            ->where('rating', '4')
+            ->count();
+        $review_3 = App\Models\Reviews::where('product_id', $product->id)
+            ->where('rating', '3')
+            ->count();
+        $review_2 = App\Models\Reviews::where('product_id', $product->id)
+            ->where('rating', '2')
+            ->count();
+        $review_1 = App\Models\Reviews::where('product_id', $product->id)
+            ->where('rating', '1')
+            ->count();
+        
+        $sumrating = App\Models\Reviews::where('product_id', $product->id)->sum('rating');
+        $countrating = App\Models\Reviews::where('product_id', $product->id)->count('rating');
+        
     @endphp
     <!-- Single Product -->
 
@@ -78,8 +78,9 @@
                         <div class="product_category">{{ $product->category->category_name }} >
                             {{ $product->subcategory->subcategory_name }}</div>
                         <div class="product_name" style="font-size: 20px;">{{ $product->name }}</div>
-
+                        @isset($product->brand->brand_name)
                         <div class="product_category"><b> Brand: {{ $product->brand->brand_name }} </b></div>
+                        @endisset
                         <div class="product_category"><b> Stock: {{ $product->stock_quantity }} </b></div>
                         <div class="product_category"><b> Unit: {{ $product->unit }} </b></div>
                         {{-- review star --}}
@@ -152,9 +153,14 @@
 
 
                         <div class="order_info d-flex flex-row">
-                            <form action="" method="post" id="add_to_cart">
+                            <form action="{{ route('add.to.cart.quickview') }}" method="post" id="add_cart_form">
                                 @csrf
-
+                                <input type="hidden" name="id" value="{{ $product->id }}">
+                                @if ($product->discount_price == null)
+                                    <input type="hidden" name="price" value="{{ $product->selling_price }}">
+                                @else
+                                    <input type="hidden" name="price" value="{{ $product->discount_price }}">
+                                @endif
                                 <div class="form-group">
                                     <div class="row">
                                         @isset($product->size)
@@ -205,17 +211,19 @@
                                             @if ($product->stock_quantity < 1)
                                                 <button class="btn btn-outline-danger" disabled="">Stock Out</button>
                                             @else
-                                                <button class="btn btn-outline-info" type="submit" style="cursor: pointer"> <span
-                                                        class="loading d-none">....</span> Add to cart</button>
+                                                <button class="btn btn-outline-info" type="submit"
+                                                    style="cursor: pointer"> <span class="loading d-none">....</span> Add
+                                                    to cart</button>
                                             @endif
 
                                             @if (Auth::id())
                                                 <a href="{{ route('add.wishlist', $product->id) }}"
-                                                    class="btn btn-outline-primary" type="button" style="cursor: pointer">Add to
+                                                    class="btn btn-outline-primary" type="button"
+                                                    style="cursor: pointer">Add to
                                                     wishlist</a>
                                             @else
-                                                <button class="btn btn-outline-primary alert_wishlist"
-                                                    type="button" style="cursor: pointer">Add to
+                                                <button class="btn btn-outline-primary alert_wishlist" type="button"
+                                                    style="cursor: pointer">Add to
                                                     wishlist</button>
                                             @endif
                                         </div>
@@ -503,7 +511,7 @@
                                     <div
                                         class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
                                         <div class="viewed_image"><img
-                                                src="{{ asset('files/products/' . $item->thumbnail) }}"
+                                                src="{{ asset('public/files/products/' . $item->thumbnail) }}"
                                                 alt="{{ $item->name }}"></div>
                                         <div class="viewed_content text-center">
                                             @if ($item->discount_price == null)
@@ -534,4 +542,25 @@
             </div>
         </div>
     </div>
+    <!-- AJAX -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        //store Cart ajax call
+        $('#add_cart_form').submit(function(e) {
+            e.preventDefault();
+            var url = $(this).attr('action');
+            var request = $(this).serialize();
+            $.ajax({
+                url: url,
+                type: 'post',
+                async: false,
+                data: request,
+                success: function(data) {
+                    toastr.success(data);
+                    $('#add_cart_form')[0].reset();
+                    cart();
+                }
+            });
+        });
+    </script>
 @endsection
