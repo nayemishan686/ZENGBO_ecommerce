@@ -44,6 +44,7 @@ Route::group(['namespace' => 'App\Http\Controllers\frontend'], function () {
         Route::post('/addToCart/quickView', 'CartController@addToCartQV')->name('add.to.cart.quickview');
         Route::get('/allCart', 'CartController@allCart')->name('all.cart');
         Route::get('/cart_destroy', 'CartController@destroy');
+        Route::get('/my-cart', 'CartController@myCart')->name('cart');
         // Route::post('/store', 'SubCategoryController@store')->name('subcategory.store');
         // Route::get('/destroy/{id}', 'SubCategoryController@destroy')->name('subcategory.delete');
         // Route::get('/edit/{id}', 'SubCategoryController@edit');

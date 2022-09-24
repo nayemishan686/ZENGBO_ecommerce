@@ -30,6 +30,7 @@
     <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend') }}/styles/product_styles.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend') }}/styles/product_responsive.css">
+    @stack('css')
 </head>
 
 <body>
@@ -92,13 +93,7 @@
             }
         @endif
     </script>
-    {{-- Wishlist error message --}}
-    <script type="text/javascript">
-        $('body').on('click', '.alert_wishlist', function(data) {
-            toastr.error('Please login first to add product in wishlist');
-        })
-    </script>
-    <!-- sweetalert msg end -->
+    @stack('script')
 </body>
 
 </html>

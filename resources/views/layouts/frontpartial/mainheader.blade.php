@@ -62,7 +62,7 @@ $wishlistCount = DB::table('wishlists')
                                 <div class="cart_count"><span class="cart_qty">{{ Cart::count() }}</span></div>
                             </div>
                             <div class="cart_content">
-                                <div class="cart_text"><a href="#">Cart</a></div>
+                                <div class="cart_text"><a href="{{route('cart')}}">Cart</a></div>
                                 <div class="cart_price"><span
                                         class="cart_total">{{ $setting->currency }}{{ Cart::total() }}</span></div>
                             </div>
